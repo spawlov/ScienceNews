@@ -23,6 +23,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
+    save_on_top = True
     prepopulated_fields = {'slug': ['title']}
     form = PostAdminForm
     list_display = ('id', 'title', 'slug', 'category', 'created_at', 'get_photo',)

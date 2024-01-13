@@ -37,7 +37,7 @@ class PostAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="{obj.photo.url}" width="50px">')
         return '-'
 
-    get_photo.short_description = 'Фото'
+    get_photo.short_description = 'миниатюра'
 
 
 admin.site.register(Category, CategoryAdmin)

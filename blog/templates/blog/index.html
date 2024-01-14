@@ -33,15 +33,15 @@
                         </div>
                     </div>
                     {% for post in posts %}
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="single-post">
                                 {% if post.photo %}
-                                    <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="max-height: 150px;">
+                                    <a href="{{ post.get_absolute_url }}"><img src="{{ post.photo.url }}" alt="{{ post.title }}"></a>
                                 {% else %}
                                 {% endif %}
                                 <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 {#                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>#}
-                                {{ post.content|safe|truncatewords_html:25 }}
+                                {{ post.content|safe|truncatewords_html:30 }}
                                 <h4><span>{{ post.created_at|date:"d.m.Y" }}</span></h4>
                             </div>
                         </div>
@@ -49,15 +49,6 @@
                 </div>
             </div>
         </div>
-        <div class="pegination">
-            <div class="nav-links">
-                <span class="page-numbers current">1</span>
-                <a class="page-numbers" href="#">2</a>
-                <a class="page-numbers" href="#">3</a>
-                <a class="page-numbers" href="#">4</a>
-                <a class="page-numbers" href="#">5</a>
-                <a class="page-numbers" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-            </div>
-        </div>
+        {% include 'includes/_paginator.html' %}
 </section>
 {% endblock content %}

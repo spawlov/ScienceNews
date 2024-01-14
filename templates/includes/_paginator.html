@@ -1,0 +1,46 @@
+<div class="pegination">
+    {% if page_obj.has_other_pages %}
+        <div class="nav-links">
+            {% if page_obj.has_previous %}
+                <a class="page-numbers" href="?page=1"><<</a>
+                <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><</a>
+                <a class="page-numbers" href="?page=1">1</a>
+                {% if page_obj.previous_page_number != 1  %}
+                    <span class="page-numbers">...</span>
+                    <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+            {% endif %}
+            <span class="page-numbers current">{{ page_obj.number }}</span>
+            {% if page_obj.has_next %}
+                <a class="page-numbers" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                {% if paginator.num_pages != page_obj.next_page_number %}
+                    <span class="page-numbers">...</span>
+                    <a class="page-numbers" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                {% endif %}
+                <a class="page-numbers" href="?page={{ page_obj.next_page_number }}">></a>
+                <a class="page-numbers" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+
+
+
+
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=1 %}"><<#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.previous_page_number %}"><#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=1 %}">1 {% if page_obj.previous_page_number != 1 %}#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %}>...#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}#}
+{#{% endif %} {% endif %}#}
+{#{{ page_obj.number }}#}
+{#{% if page_obj.has_next %}#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}#}
+{#{% if paginator.num_pages != page_obj.next_page_number %}#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %}>...#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}#}
+{#{% endif %}#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.next_page_number %}">>#}
+{#= 19 or current_time.hour <= 7 %}class="page-link bg-dark text-bg-dark"{% else %}class="page-link"{% endif %} href="?{% url_replace page=page_obj.paginator.num_pages %}">>>#}
+{#{% endif %}#}

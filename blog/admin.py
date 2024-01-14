@@ -36,7 +36,7 @@ class TagAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     save_on_top = True
     form = PostAdminForm
-    list_display = ('id', 'title', 'slug', 'category', 'created_at', 'get_list_photo',)
+    list_display = ('id', 'title', 'slug', 'category', 'created_at', 'views', 'get_list_photo',)
     list_display_links = ('id', 'title',)
     search_fields = ('title',)
     list_filter = ('category',)

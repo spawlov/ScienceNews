@@ -5,7 +5,7 @@ from django.urls import reverse
 
 class Category(models.Model):
     title = models.CharField(max_length=255, unique=True, verbose_name="название")
-    slug = models.SlugField(max_length=255, unique=True, verbose_name="url")
+    slug = models.SlugField(max_length=255, blank=True, null=True, unique=True, verbose_name="url")
 
     class Meta:
         verbose_name = 'категория(ю)'
@@ -21,7 +21,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name="название")
-    slug = models.SlugField(max_length=50, unique=True, verbose_name="url")
+    slug = models.SlugField(max_length=50, blank=True, null=True, unique=True, verbose_name="url")
 
     class Meta:
         verbose_name = 'тег'
@@ -34,7 +34,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name="название")
-    slug = models.SlugField(max_length=255, unique=True, verbose_name="url")
+    slug = models.SlugField(max_length=255, blank=True, null=True, unique=True, verbose_name="url")
     author = models.CharField(max_length=100, verbose_name="автор")
     content = RichTextField(blank=True, null=True, verbose_name="контент")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="опубликовано")

@@ -36,12 +36,11 @@
                         <div class="col-md-3">
                             <div class="single-post">
                                 {% if post.photo %}
-                                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                                    <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="max-height: 150px;">
                                 {% else %}
                                 {% endif %}
                                 <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span>
-                                </h4>
+{#                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>#}
                                 {{ post.content|safe|truncatewords_html:25 }}
                                 <h4><span>{{ post.created_at|date:"d.m.Y" }}</span></h4>
                             </div>

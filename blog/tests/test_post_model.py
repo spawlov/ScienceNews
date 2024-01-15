@@ -8,7 +8,7 @@ from blog.models import Post, Category, Tag
 class PostModelTest(TestCase):
 
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         category = Category.objects.create(title='Test Category', slug='test-category')
         post = Post.objects.create(
             title='Test title',

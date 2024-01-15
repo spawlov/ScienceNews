@@ -5,7 +5,7 @@ from blog.models import Category
 
 class CategoryModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         Category.objects.create(title='Test Category', slug='test-category')
 
     def test_category_title_type(self):

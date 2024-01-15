@@ -43,8 +43,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="опубликовано")
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, null=True, verbose_name="фото")
     views = models.IntegerField(default=0, verbose_name="количество просмотров")
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="posts", verbose_name="категория")
-    tags = models.ManyToManyField(Tag, blank=True, related_name="posts", verbose_name="теги")
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="categories", verbose_name="категория")
+    tag = models.ManyToManyField(Tag, blank=True, related_name="tags", verbose_name="теги")
 
     class Meta:
         verbose_name = 'статья(ю)'

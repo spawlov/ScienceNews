@@ -40,6 +40,20 @@ class CategoryViewTests(TestCase):
             self.assertTrue(response.status_code == 200)
         self.assertEqual(counter, 9)
 
+    def test_category_exist_one_post_in_category(self):
+        counter = 0
+        for counter in range(0, self._post_count):
+            response = self.client.get(f'/category/test-category-{counter}/')
+            self.assertTrue(len(response.context['posts']) == 1)
+        self.assertEqual(counter, 9)
+
+    def test_category_exist_one_post_in_category_by_name(self):
+        counter = 0
+        for counter in range(0, self._post_count):
+            response = self.client.get(reverse('category', kwargs={'slug': f'test-category-{counter}'}))
+            self.assertTrue(len(response.context['posts']) == 1)
+        self.assertEqual(counter, 9)
+
     def test_category_exist_post_from_categories(self):
         counter = 0
         for counter in range(0, self._post_count):

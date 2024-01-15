@@ -17,7 +17,10 @@ class Home(ListView):
         return context
 
 
-class PostByCategory(Home):
+class PostByCategory(ListView):
+    template_name = 'blog/index.html'
+    context_object_name = 'posts'
+    paginate_by = 6
 
     def get_queryset(self):
         return get_list_or_404(Post, category__slug=self.kwargs.get('slug'))
@@ -28,7 +31,10 @@ class PostByCategory(Home):
         return context
 
 
-class PostByTag(Home):
+class PostByTag(ListView):
+    template_name = 'blog/index.html'
+    context_object_name = 'posts'
+    paginate_by = 6
 
     def get_queryset(self):
         return get_list_or_404(Post, tag__slug=self.kwargs.get('slug'))

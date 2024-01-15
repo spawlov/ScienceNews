@@ -4,8 +4,7 @@ from ..models import Category
 
 
 class CategoryModelTest(TestCase):
-    @classmethod
-    def setUp(cls):
+    def setUp(self):
         Category.objects.create(title='Test Category', slug='test-category')
 
     def test_category_title_type(self):

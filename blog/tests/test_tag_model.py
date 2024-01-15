@@ -4,8 +4,7 @@ from ..models import Tag
 
 
 class CategoryModelTest(TestCase):
-    @classmethod
-    def setUp(cls):
+    def setUp(self):
         Tag.objects.create(title='Test tag', slug='test-tag')
 
     def test_category_title_type(self):

@@ -65,3 +65,11 @@ class CategoryViewTests(TestCase):
             self.assertEqual(post.category.title, f'Test Category {counter}')
             self.assertEqual(post.category.slug, f'test-category-{counter}')
         self.assertEqual(counter, 9)
+
+    def test_view_uses_correct_template(self):
+        counter = 0
+        for counter in range(0, self._post_count):
+            response = self.client.get(reverse('category', kwargs={'slug': f'test-category-{counter}'}))
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'blog/index.html')
+        self.assertEqual(counter, 9)

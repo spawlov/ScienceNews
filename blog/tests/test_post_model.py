@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.db import models
 from django.utils import timezone
 
-from blog.models import Post, Category, Tag
+from ..models import Post, Category, Tag
 
 
 class PostModelTest(TestCase):

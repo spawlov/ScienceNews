@@ -52,3 +52,17 @@ class CategoryModelTest(TestCase):
         category_fields_value = Category.objects.get(slug='test-category')
         self.assertEqual(category_fields_value.title, 'Test Category')
         self.assertEqual(category_fields_value.slug, 'test-category')
+
+    def test_post_meta_fields(self):
+        post_meta = Category._meta
+        self.assertEqual(post_meta.verbose_name, 'категория(ю)')
+        self.assertEqual(post_meta.verbose_name_plural, 'категории')
+        self.assertEqual(post_meta.ordering, ('title',))
+
+    def test_post_str(self):
+        post_str = Category.objects.get(pk=1).__str__()
+        self.assertEqual(post_str, 'Test Category')
+
+    def test_post_get_absolute_url(self):
+        post_url = Category.objects.get(pk=1).get_absolute_url()
+        self.assertEqual(post_url, '/category/test-category/')

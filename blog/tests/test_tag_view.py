@@ -1,7 +1,5 @@
-from django.shortcuts import get_object_or_404, get_list_or_404
 from django.test import TestCase
 from django.urls import reverse
-
 from lorem import get_paragraph
 
 from ..models import Post, Category, Tag

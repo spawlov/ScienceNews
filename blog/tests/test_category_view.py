@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from lorem import get_paragraph
 
-from blog.models import Post, Category
+from ..models import Post, Category
 
 
 class CategoryViewTests(TestCase):
@@ -31,28 +31,28 @@ class CategoryViewTests(TestCase):
         for counter in range(0, self._post_count):
             response = self.client.get(f'/category/test-category-{counter}/')
             self.assertTrue(response.status_code == 200)
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_all_by_name(self):
         counter = 0
         for counter in range(0, self._post_count):
             response = self.client.get(reverse('category', kwargs={'slug': f'test-category-{counter}'}))
             self.assertTrue(response.status_code == 200)
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_one_post_in_category(self):
         counter = 0
         for counter in range(0, self._post_count):
             response = self.client.get(f'/category/test-category-{counter}/')
             self.assertTrue(len(response.context['posts']) == 1)
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_one_post_in_category_by_name(self):
         counter = 0
         for counter in range(0, self._post_count):
             response = self.client.get(reverse('category', kwargs={'slug': f'test-category-{counter}'}))
             self.assertTrue(len(response.context['posts']) == 1)
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_post_from_categories(self):
         counter = 0
@@ -64,7 +64,7 @@ class CategoryViewTests(TestCase):
             self.assertTrue(post.author == self._author)
             self.assertEqual(post.category.title, f'Test Category {counter}')
             self.assertEqual(post.category.slug, f'test-category-{counter}')
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)
 
     def test_view_uses_correct_template(self):
         counter = 0
@@ -72,4 +72,4 @@ class CategoryViewTests(TestCase):
             response = self.client.get(reverse('category', kwargs={'slug': f'test-category-{counter}'}))
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, 'blog/index.html')
-        self.assertEqual(counter, 9)
+        self.assertEqual(counter, self._post_count - 1)

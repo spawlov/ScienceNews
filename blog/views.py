@@ -31,7 +31,7 @@ class PostByCategory(Home):
 class PostByTag(Home):
 
     def get_queryset(self):
-        return get_list_or_404(Post, tags__slug=self.kwargs.get('slug'))
+        return get_list_or_404(Post, tag__slug=self.kwargs.get('slug'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

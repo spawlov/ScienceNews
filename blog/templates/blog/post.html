@@ -15,9 +15,9 @@
                                 <h4>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></h4>
                                 <p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p>
                                 <h5>
-                                    {% if post.tags.exists %}
+                                    {% if post.tag.exists %}
                                         Tags:
-                                        {% for tag in post.tags.all %}
+                                        {% for tag in post.tag.all %}
                                             <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
                                         {% endfor %}
                                         &nbsp;|&nbsp;

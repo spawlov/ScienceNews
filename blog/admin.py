@@ -20,8 +20,9 @@ class CategoryAdmin(admin.ModelAdmin):
     fields = ('title',)
 
     def save_model(self, request, obj, form, change):
-        obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
-        obj.save()
+        if form.is_valid():
+            obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
+            obj.save()
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -29,8 +30,9 @@ class TagAdmin(admin.ModelAdmin):
     fields = ('title',)
 
     def save_model(self, request, obj, form, change):
-        obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
-        obj.save()
+        if form.is_valid():
+            obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
+            obj.save()
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -56,8 +58,9 @@ class PostAdmin(admin.ModelAdmin):
     get_photo.short_description = get_list_photo.short_description = 'превью'
 
     def save_model(self, request, obj, form, change):
-        obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
-        obj.save()
+        if form.is_valid():
+            obj.slug = slugify(form.cleaned_data['title'], language_code='ru')
+            obj.save()
 
 
 admin.site.register(Category, CategoryAdmin)

@@ -17,7 +17,10 @@ class PostAdminForm(forms.ModelForm):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug",)
+    list_display = (
+        "title",
+        "slug",
+    )
     fields = ("title",)
 
     def save_model(self, request, obj, form, change):
@@ -27,7 +30,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug",)
+    list_display = (
+        "title",
+        "slug",
+    )
     fields = ("title",)
 
     def save_model(self, request, obj, form, change):
@@ -48,10 +54,17 @@ class PostAdmin(admin.ModelAdmin):
         "views",
         "get_list_photo",
     )
-    list_display_links = ("id", "title",)
+    list_display_links = (
+        "id",
+        "title",
+    )
     search_fields = ("title",)
     list_filter = ("category",)
-    readonly_fields = ("views", "created_at", "get_photo",)
+    readonly_fields = (
+        "views",
+        "created_at",
+        "get_photo",
+    )
     fields = (
         "title",
         "category",
@@ -66,13 +79,15 @@ class PostAdmin(admin.ModelAdmin):
     def get_photo(self, obj):
         if obj.photo:
             return mark_safe(
-                f"<img src=\"{obj.photo.url}\" style=\"max-height: 200px;\">")
+                f'<img src="{obj.photo.url}" style="max-height: 200px;">'
+            )
         return "-"
 
     def get_list_photo(self, obj):
         if obj.photo:
             return mark_safe(
-                f"<img src=\"{obj.photo.url}\" style=\"max-height: 50px;\">")
+                f'<img src="{obj.photo.url}" style="max-height: 50px;">'
+            )
         return "-"
 
     get_photo.short_description = get_list_photo.short_description = "превью"

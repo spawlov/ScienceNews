@@ -36,8 +36,9 @@
                         <div class="col-md-4">
                             <div class="single-post">
                                 {% if post.photo %}
-                                    <a href="{{ post.get_absolute_url }}"><img src="{{ post.photo.url }}" alt="{{ post.title }}"></a>
+                                    <p><a href="{{ post.get_absolute_url }}"><img src="{{ post.photo.url }}" alt="{{ post.title }}"></a></p>
                                 {% else %}
+                                    <p><a href="{{ post.get_absolute_url }}"><img src="https://placebear.com/300/201" alt="Place Holder"></a></p>
                                 {% endif %}
                                 <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 {#                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>#}

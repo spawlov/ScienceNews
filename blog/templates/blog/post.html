@@ -13,7 +13,11 @@
                             <div class="blog-area-part">
                                 <h3>{{ post.title }}</h3>
                                 <h4>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></h4>
-                                <p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p>
+                                {% if post.photo %}
+                                    <p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p>
+                                {% else %}
+                                    <p><img src="https://placebear.com/300/201" alt="Place Holder"></p>
+                                {% endif %}
                                 <h5>
                                     {% if post.tag.exists %}
                                         Tags:

@@ -13,7 +13,7 @@ class PostAdminForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ("title",)
 
 
 class CategoryAdmin(admin.ModelAdmin):

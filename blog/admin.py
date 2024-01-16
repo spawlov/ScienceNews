@@ -78,16 +78,16 @@ class PostAdmin(admin.ModelAdmin):
 
     def get_photo(self, obj):
         if obj.photo:
-            return mark_safe(f''
-                             f'<img src="{obj.photo.url}" '
-                             f'style="max-height: 200px;">')
+            return mark_safe(
+                f'<img src="{obj.photo.url}" ' f'style="max-height: 200px;">'
+            )
         return "-"
 
     def get_list_photo(self, obj):
         if obj.photo:
-            return mark_safe(f''
-                             f'<img src="{obj.photo.url}" '
-                             f'style="max-height: 50px;">')
+            return mark_safe(
+                f'<img src="{obj.photo.url}" ' f'style="max-height: 50px;">'
+            )
         return "-"
 
     get_photo.short_description = get_list_photo.short_description = "превью"

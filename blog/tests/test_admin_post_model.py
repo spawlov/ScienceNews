@@ -1,9 +1,9 @@
+import os
 import tempfile
 
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from lorem import get_paragraph
@@ -20,7 +20,7 @@ class CategoryAdminTest(TestCase):
         self.client.login(username='admin', password='password')
         self.category = Category.objects.create(title='Test Category', slug='test-category')
         self.content = get_paragraph(5, sep='\n', comma=(0, 2), word_range=(4, 8), sentence_range=(5, 10))
-        self.photo = tempfile.NamedTemporaryFile(suffix='.jpg').name
+        self.photo = os.path.normpath(tempfile.NamedTemporaryFile(suffix='.jpg').name)
 
     def test_category_model(self):
         model_admin = ModelAdmin(Post, self.site)

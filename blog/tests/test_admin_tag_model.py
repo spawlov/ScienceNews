@@ -22,7 +22,7 @@ class CategoryAdminTest(TestCase):
         request = HttpRequest()
         request.method = 'POST'
         request.user = self.user
-        tag = Tag(title='Test Category')
+        tag = Tag(title='Test Tag')
         admin = TagAdmin(Tag, self.site)
         form_class = admin.get_form(request)
         form = form_class(data={'title': 'Test Tag'}, instance=tag)

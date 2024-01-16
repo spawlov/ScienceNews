@@ -20,7 +20,7 @@ class CategoryAdminTest(TestCase):
         self.client.login(username='admin', password='password')
         self.category = Category.objects.create(title='Test Category', slug='test-category')
         self.content = get_paragraph(5, sep='\n', comma=(0, 2), word_range=(4, 8), sentence_range=(5, 10))
-        self.photo = os.path.normpath(tempfile.NamedTemporaryFile(suffix='.jpg').name)
+        self.photo = tempfile.NamedTemporaryFile(suffix='.jpg').name
 
     def test_category_model(self):
         model_admin = ModelAdmin(Post, self.site)
@@ -31,20 +31,22 @@ class CategoryAdminTest(TestCase):
             title='Test Post',
             content=self.content,
             category=self.category,
-            photo=self.photo,
+            photo=os.path.normpath(self.photo),
         )
-        self.assertEqual(post.photo.url, f'/media{self.photo}')
+        path = f'/media{self.photo}'
+        self.assertEqual(post.photo.url, os.path.normpath(path))
 
     def test_get_photo_with_image(self):
         post = Post.objects.create(
             title='Test Post',
             content=self.content,
             category=self.category,
-            photo=self.photo,
+            photo=os.path.normpath(self.photo),
         )
         admin = PostAdmin(Post, self.site)
+        path = f'/media{self.photo}'
         self.assertEqual(
-            str(admin.get_photo(post)), f'<img src="/media{self.photo}" style="max-height: 200px;">'
+            str(admin.get_photo(post)), f'<img src="{os.path.normpath(path)}" style="max-height: 200px;">'
         )
 
     def test_get_photo_without_image(self):
@@ -62,11 +64,12 @@ class CategoryAdminTest(TestCase):
             title='Test Post',
             content=self.content,
             category=self.category,
-            photo=self.photo,
+            photo=os.path.normpath(self.photo),
         )
         admin = PostAdmin(Post, self.site)
+        path = f'/media{self.photo}'
         self.assertEqual(
-            str(admin.get_list_photo(post)), f'<img src="/media{self.photo}" style="max-height: 50px;">'
+            str(admin.get_list_photo(post)), f'<img src="{os.path.normpath(path)}" style="max-height: 50px;">'
         )
 
     def test_get_list_photo_without_image(self):

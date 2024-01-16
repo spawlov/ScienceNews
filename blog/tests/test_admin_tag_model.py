@@ -22,11 +22,11 @@ class CategoryAdminTest(TestCase):
         request = HttpRequest()
         request.method = 'POST'
         request.user = self.user
-        category = Tag(title='Test Category')
+        tag = Tag(title='Test Category')
         admin = TagAdmin(Tag, self.site)
         form_class = admin.get_form(request)
-        form = form_class(data={'title': 'Test Tag'}, instance=category)
+        form = form_class(data={'title': 'Test Tag'}, instance=tag)
         change = True
-        admin.save_model(request, category, form, change)
-        self.assertEqual(category.slug, 'test-tag')
-        self.assertEqual(category.title, 'Test Tag')
+        admin.save_model(request, tag, form, change)
+        self.assertEqual(tag.slug, 'test-tag')
+        self.assertEqual(tag.title, 'Test Tag')

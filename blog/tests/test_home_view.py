@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from lorem import get_paragraph
 
-from ..models import Post, Category
+from ..models import Category, Post
 
 
 class PostViewTests(TestCase):

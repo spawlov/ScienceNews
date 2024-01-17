@@ -50,17 +50,17 @@
                             <div class="col-md-4">
                                 <div class="single-post">
                                     {% if post.photo %}
-                                        <p>
+                                        <div class="text-center">
                                             <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
-                                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="height: 201px;">
+                                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="width: auto; height: 201px">
                                             </a>
-                                        </p>
+                                        </div>
                                     {% else %}
-                                        <p>
+                                        <div class="text-center">
                                             <a href="{{ post.get_absolute_url }}">
-                                                <img src="https://placebear.com/300/201" alt="Place Holder">
+                                                <img src="https://placebear.com/300/201" alt="Place Holder" style="width: auto; height: 201px">
                                             </a>
-                                        </p>
+                                        </div>>
                                     {% endif %}
                                     <h4><a href="{{ post.get_absolute_url }}">{{ post.title|truncatechars:75 }}</a></h4>
                                     <h4><span>Posted By: <span class="author-name">{{ post.author }}</span> | <span class="date">{{ post.created_at|date:"d.m.Y" }}</span></span></h4>

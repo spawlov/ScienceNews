@@ -8,7 +8,7 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    {% for item in categories %}
+                                    {% for item in menu_category %}
                                         <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
                                     {% endfor %}
                                 </ul>

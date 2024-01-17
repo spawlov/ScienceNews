@@ -2,5 +2,5 @@ from blog.models import Category
 
 
 def get_categories(request):
-    categories = Category.objects.all()
-    return {"categories": categories}
+    menu_category = Category.objects.all()
+    return {"menu_category": menu_category}

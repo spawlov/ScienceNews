@@ -60,7 +60,7 @@ class CategoryViewTests(TestCase):
         counter = 0
         for counter in range(0, self._post_count):
             response = self.client.get(f"/category/test-category-{counter}/")
-            self.assertTrue(len(response.context["posts"]) == 1)
+            self.assertTrue(len(response.context["categories"]) == 1)
         self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_one_post_in_category_by_name(self):
@@ -74,7 +74,7 @@ class CategoryViewTests(TestCase):
                     },
                 )
             )
-            self.assertTrue(len(response.context["posts"]) == 1)
+            self.assertTrue(len(response.context["categories"]) == 1)
         self.assertEqual(counter, self._post_count - 1)
 
     def test_category_exist_post_from_categories(self):
@@ -104,5 +104,5 @@ class CategoryViewTests(TestCase):
                 )
             )
             self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "blog/index.html")
+            self.assertTemplateUsed(response, "blog/category.html")
         self.assertEqual(counter, self._post_count - 1)

@@ -72,9 +72,9 @@ class CategoryViewTests(TestCase):
         for counter in range(1, self._tag_count):
             response = self.client.get(f"/tag/test-tag-{counter}/")
             if counter % 2:
-                self.assertEqual(len(response.context["posts"]), 4)
+                self.assertEqual(len(response.context["tags"]), 4)
             else:
-                self.assertEqual(len(response.context["posts"]), 5)
+                self.assertEqual(len(response.context["tags"]), 5)
         self.assertEqual(counter, self._tag_count - 1)
 
     def test_tag_exist_posts_in_tags_by_name(self):
@@ -84,9 +84,9 @@ class CategoryViewTests(TestCase):
                 reverse("tag", kwargs={"slug": f"test-tag-{counter}"})
             )
             if counter % 2:
-                self.assertEqual(len(response.context["posts"]), 4)
+                self.assertEqual(len(response.context["tags"]), 4)
             else:
-                self.assertEqual(len(response.context["posts"]), 5)
+                self.assertEqual(len(response.context["tags"]), 5)
         self.assertEqual(counter, self._tag_count - 1)
 
     def test_tag_exist_post_from_tags(self):
@@ -105,5 +105,5 @@ class CategoryViewTests(TestCase):
                 reverse("tag", kwargs={"slug": f"test-tag-{counter}"})
             )
             self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "blog/index.html")
+            self.assertTemplateUsed(response, "blog/tag.html")
         self.assertEqual(counter, self._tag_count - 1)

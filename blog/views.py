@@ -18,8 +18,8 @@ class Home(ListView):
 
 
 class PostByCategory(ListView):
-    template_name = "blog/index.html"
-    context_object_name = "posts"
+    template_name = "blog/category.html"
+    context_object_name = "categories"
     paginate_by = 6
 
     def get_queryset(self):
@@ -34,8 +34,8 @@ class PostByCategory(ListView):
 
 
 class PostByTag(ListView):
-    template_name = "blog/index.html"
-    context_object_name = "posts"
+    template_name = "blog/tag.html"
+    context_object_name = "tags"
     paginate_by = 6
 
     def get_queryset(self):

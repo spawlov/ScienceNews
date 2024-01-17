@@ -32,18 +32,18 @@
                             </div>
                         </div>
                     </div>
-                    {% for category in categories %}
+                    {% for tag in tags %}
                         <div class="col-md-4">
                             <div class="single-post">
-                                {% if category.photo %}
-                                    <p><a href="{{ category.get_absolute_url }}"><img src="{{ category.photo.url }}" alt="{{ category.title }}"></a></p>
+                                {% if tag.photo %}
+                                    <p><a href="{{ tag.get_absolute_url }}"><img src="{{ tag.photo.url }}" alt="{{ tag.title }}"></a></p>
                                 {% else %}
-                                    <p><a href="{{ category.get_absolute_url }}"><img src="https://placebear.com/300/201" alt="Place Holder"></a></p>
+                                    <p><a href="{{ tag.get_absolute_url }}"><img src="https://placebear.com/300/201" alt="Place Holder"></a></p>
                                 {% endif %}
-                                <h3><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></h3>
+                                <h3><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></h3>
 {#                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>#}
-                                {{ category.content|safe|truncatewords_html:30 }}
-                                <h4><span>{{ category.created_at|date:"d.m.Y" }}</span></h4>
+                                {{ tag.content|safe|truncatewords_html:30 }}
+                                <h4><span>{{ tag.created_at|date:"d.m.Y" }}</span></h4>
                             </div>
                         </div>
                     {% endfor %}

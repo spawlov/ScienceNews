@@ -94,6 +94,8 @@ class PostAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if form.is_valid():
+            user = request.user
+            obj.author = f"{user.last_name} {user.first_name}".strip()
             obj.slug = slugify(form.cleaned_data["title"], language_code="ru")
             obj.save()
 

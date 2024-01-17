@@ -1,8 +1,8 @@
-from django.test import TestCase
 from django.db import models
+from django.test import TestCase
 from django.utils import timezone
 
-from ..models import Post, Category, Tag
+from ..models import Category, Post, Tag
 
 
 class PostModelTest(TestCase):

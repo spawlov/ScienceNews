@@ -1,11 +1,12 @@
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
 from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from transliterate import slugify
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Category, Tag, Post
+from .models import Category, Post, Tag
 
 
 class PostAdminForm(forms.ModelForm):

@@ -1,8 +1,8 @@
 from django.db.models import F
-from django.shortcuts import get_object_or_404, get_list_or_404
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_list_or_404, get_object_or_404
+from django.views.generic import DetailView, ListView
 
-from .models import Post, Category, Tag
+from .models import Category, Post, Tag
 
 
 class Home(ListView):

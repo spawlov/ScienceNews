@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from lorem import get_paragraph
 
-from ..models import Post, Category, Tag
+from ..models import Category, Post, Tag
 
 
 class PostViewTest(TestCase):

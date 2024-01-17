@@ -1,7 +1,7 @@
+from ckeditor.fields import RichTextField
+
 from django.db import models
 from django.urls import reverse
-
-from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):

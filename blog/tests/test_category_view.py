@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from lorem import get_paragraph
 
-from ..models import Post, Category
+from ..models import Category, Post
 
 
 class CategoryViewTests(TestCase):

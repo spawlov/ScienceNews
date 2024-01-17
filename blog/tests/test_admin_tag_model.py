@@ -1,11 +1,11 @@
 from django.contrib.admin.options import ModelAdmin
-from django.contrib.auth.models import User
 from django.contrib.admin.sites import AdminSite
+from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.test import TestCase
 
-from ..models import Tag
 from ..admin import TagAdmin
+from ..models import Tag
 
 
 class CategoryAdminTest(TestCase):

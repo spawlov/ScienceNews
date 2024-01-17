@@ -1,6 +1,7 @@
 import os
 import sys
 import tempfile
+from unittest import skipIf
 
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import AdminSite
@@ -8,11 +9,10 @@ from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.test import TestCase
 
-from unittest import skipIf
 from lorem import get_paragraph
 
 from ..admin import PostAdmin
-from ..models import Post, Category
+from ..models import Category, Post
 
 
 class CategoryAdminTest(TestCase):

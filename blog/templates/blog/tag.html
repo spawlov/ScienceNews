@@ -21,35 +21,61 @@
                     <div class="col-md-12">
                         <div class="single-post-big">
                             <div class="big-image">
-                                <img src="{% static 'img/post-image1.jpg' %}" alt="">
+                                {% if random_post.photo %}
+                                <a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">
+                                    <img src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
+                                </a>
+                                {% else %}
+                                    <p>
+                                        <a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">
+                                            <img src="https://placebear.com/300/201" alt="Place Holder">
+                                        </a>
+                                    </p>
+                                {% endif %}
                             </div>
                             <div class="big-text">
-                                <h3><a href="#">Post Title Goes Here.</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                <h4><span class="date">25 February 2017</span><span class="author">Posted By: <span class="author-name">Kabbo Liate</span></span>
+                                <h3><a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">{{ random_post.title|truncatechars:50 }}</a></h3>
+                                <p>{{ random_post.content|safe|truncatechars_html:300 }}</p>
+                                <h4><span class="date">{{ random_post.created_at|date:"d.m.Y" }}</span><span class="author">Posted By: <span class="author-name">{{ random_post.author }}</span></span>
                                 </h4>
                             </div>
                         </div>
                     </div>
-                    {% for tag in tags %}
-                        <div class="col-md-4">
-                            <div class="single-post">
-                                {% if tag.photo %}
-                                    <p><a href="{{ tag.get_absolute_url }}"><img src="{{ tag.photo.url }}" alt="{{ tag.title }}"></a></p>
-                                {% else %}
-                                    <p><a href="{{ tag.get_absolute_url }}"><img src="https://placebear.com/300/201" alt="Place Holder"></a></p>
-                                {% endif %}
-                                <h3><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></h3>
-{#                                <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>#}
-                                {{ tag.content|safe|truncatewords_html:30 }}
-                                <h4><span>{{ tag.created_at|date:"d.m.Y" }}</span></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="blog-post-area-style">
+                    <div class="col-md-12">
+                        {% for post in tags %}
+                            <div class="col-md-4">
+                                <div class="single-post">
+                                    {% if post.photo %}
+                                        <p>
+                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="height: 201px;">
+                                            </a>
+                                        </p>
+                                    {% else %}
+                                        <p>
+                                            <a href="{{ post.get_absolute_url }}">
+                                                <img src="https://placebear.com/300/201" alt="Place Holder">
+                                            </a>
+                                        </p>
+                                    {% endif %}
+                                    <h4><a href="{{ post.get_absolute_url }}">{{ post.title|truncatechars:75 }}</a></h4>
+                                    <h4><span>Posted By: <span class="author-name">{{ post.author }}</span> | <span class="date">{{ post.created_at|date:"d.m.Y" }}</span></span></h4>
+                                    <span>{{ post.content|safe|truncatechars_html:85 }}</span>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% if forloop.counter == 3 %}
+                    </div>
+                    <div class="col-md-12">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
         {% include 'includes/_paginator.html' %}
-</section>
+    </section>
 {% endblock content %}

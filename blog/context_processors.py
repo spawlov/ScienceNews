@@ -3,8 +3,11 @@ from blog.models import Category, Post
 
 def get_general_context(request):
     menu_category = Category.objects.all()
-    popular_posts = Post.objects.all().order_by("-views")[:5]
+    posts = Post.objects.all()
+    popular_posts = posts.order_by("-views")[:5]
+    random_post = posts.order_by("?").first()
     return {
         "menu_category": menu_category,
         "five_popular_posts": popular_posts,
+        "random_post": random_post,
     }

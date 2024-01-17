@@ -75,6 +75,7 @@ class PostAdmin(admin.ModelAdmin):
         "views",
         "created_at",
     )
+    list_per_page = 10
 
     def get_photo(self, obj):
         if obj.photo:

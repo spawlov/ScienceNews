@@ -59,7 +59,8 @@ class CategoryAdminTest(TestCase):
         admin = PostAdmin(Post, self.site)
         self.assertEqual(
             str(admin.get_photo(post)),
-            f'<img src="/media{self.photo}" style="max-height: 200px;">',
+            f'<img src="/media{self.photo}" style="max-height: 200px;">'
+            f"<figcaption>None</figcaption>",
         )
 
     def test_get_photo_without_image(self):

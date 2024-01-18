@@ -87,6 +87,11 @@ class Post(models.Model):
         null=True,
         verbose_name="фото",
     )
+    photo_caption = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="описание картинки",
+    )
     views = models.IntegerField(
         default=0,
         verbose_name="количество просмотров",
@@ -102,6 +107,10 @@ class Post(models.Model):
         blank=True,
         related_name="tags",
         verbose_name="теги",
+    )
+    published = models.BooleanField(
+        default=True,
+        verbose_name="опубликовано",
     )
 
     class Meta:

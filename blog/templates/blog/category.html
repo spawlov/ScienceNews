@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="bg-text">
-                        <h3>Classic BLOG Design</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla </p>
+{#                        <h3>Classic BLOG Design</h3>#}
+{#                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla </p>#}
                     </div>
                 </div>
             </div>
@@ -19,61 +19,12 @@
             <div class="row">
                 <div class="blog-post-area-style">
                     <div class="col-md-12">
-                        <div class="single-post-big">
-                            <div class="big-image">
-                                {% if random_post.photo %}
-                                <a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">
-                                    <img src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
-                                </a>
-                                {% else %}
-                                    <p>
-                                        <a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">
-                                            <img src="https://placebear.com/300/201" alt="Place Holder">
-                                        </a>
-                                    </p>
-                                {% endif %}
-                            </div>
-                            <div class="big-text">
-                                <h3><a href="{{ random_post.get_absolute_url }}" title="{{ random_post.title }}">{{ random_post.title|truncatechars:50 }}</a></h3>
-                                <p>{{ random_post.content|safe|truncatechars_html:300 }}</p>
-                                <h4><span class="date">{{ random_post.created_at|date:"d.m.Y" }}</span><span class="author">Posted By: <span class="author-name">{{ random_post.author }}</span></span>
-                                </h4>
-                            </div>
-                        </div>
+                        {% include 'includes/_ramdom_post.html' %}
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="blog-post-area-style">
-                    <div class="col-md-12">
-                        {% for post in categories %}
-                            <div class="col-md-4">
-                                <div class="single-post">
-                                    {% if post.photo %}
-                                        <div class="text-center">
-                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
-                                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" style="width: auto; height: 201px">
-                                            </a>
-                                        </div>
-                                    {% else %}
-                                        <div class="text-center">
-                                            <a href="{{ post.get_absolute_url }}">
-                                                <img src="https://placebear.com/300/201" alt="Place Holder" style="width: auto; height: 201px">
-                                            </a>
-                                        </div>>
-                                    {% endif %}
-                                    <h4><a href="{{ post.get_absolute_url }}">{{ post.title|truncatechars:75 }}</a></h4>
-                                    <h4><span>Posted By: <span class="author-name">{{ post.author }}</span> | <span class="date">{{ post.created_at|date:"d.m.Y" }}</span></span></h4>
-                                    <span>{{ post.content|safe|truncatechars_html:85 }}</span>
-                                </div>
-                            </div>
-                        {% if forloop.counter == 3 %}
-                    </div>
-                    <div class="col-md-12">
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+               {% include 'includes/_recent_posts_by_category.html' %}
             </div>
         </div>
         {% include 'includes/_paginator.html' %}

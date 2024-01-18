@@ -13,7 +13,7 @@
                             <h1>{{ post.title }}</h1>
                             <h4>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></h4>
                             {% if post.photo %}
-                                <p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p>
+                                <p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p><figcaption>{{ post.photo_caption }}</figcaption>
                             {% else %}
                                 <p><img src="https://placebear.com/300/201" alt="Place Holder"></p>
                             {% endif %}
@@ -21,7 +21,7 @@
                                 {% if post.tag.exists %}
                                     Tags:
                                     {% for tag in post.tag.all %}
-                                        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                                        <a href="{{ tag.get_absolute_url }}">#{{ tag.title }}</a>
                                     {% endfor %}
                                     &nbsp;|&nbsp;
                                 {% endif %}

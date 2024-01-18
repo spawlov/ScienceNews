@@ -54,7 +54,7 @@ class CategoryAdminTest(TestCase):
             title="Test Post",
             content=self.content,
             category=self.category,
-            photo=os.path.normpath(self.photo),
+            photo=self.photo,
         )
         admin = PostAdmin(Post, self.site)
         self.assertEqual(

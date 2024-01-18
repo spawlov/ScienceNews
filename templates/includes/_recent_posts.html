@@ -14,7 +14,7 @@
                             <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
                                 <img src="https://placebear.com/300/201" alt="Place Holder" style="width: auto; height: 201px">
                             </a>
-                        </div>>
+                        </div>
                     {% endif %}
                     <h4><a href="{{ post.get_absolute_url }}">{{ post.title|truncatechars:75 }}</a></h4>
                     <h5><span>Posted By: <span class="author-name">{{ post.author }}</span> | <span class="date">{{ post.created_at|date:"d.m.Y" }}</span></span></h5>

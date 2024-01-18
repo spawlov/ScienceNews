@@ -81,7 +81,9 @@ class PostAdmin(admin.ModelAdmin):
     def get_photo(self, obj):
         if obj.photo:
             return mark_safe(
-                f'<img src="{obj.photo.url}" ' f'style="max-height: 200px;">'
+                f'<img src="{obj.photo.url}" '
+                f'style="max-height: '
+                f'200px;"><figcaption>{obj.photo_caption}</figcaption>'
             )
         return "-"
 

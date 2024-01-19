@@ -23,6 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
         "slug",
     )
     fields = ("title",)
+    list_per_page = 20
 
     def save_model(self, request, obj, form, change):
         if form.is_valid():
@@ -36,6 +37,7 @@ class TagAdmin(admin.ModelAdmin):
         "slug",
     )
     fields = ("title",)
+    list_per_page = 20
 
     def save_model(self, request, obj, form, change):
         if form.is_valid():
@@ -54,6 +56,7 @@ class PostAdmin(admin.ModelAdmin):
         "created_at",
         "views",
         "get_list_photo",
+        "published",
     )
     list_display_links = (
         "id",
@@ -75,6 +78,7 @@ class PostAdmin(admin.ModelAdmin):
         "get_photo",
         "views",
         "created_at",
+        "published",
     )
     list_per_page = 10
 

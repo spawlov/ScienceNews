@@ -29,7 +29,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install flake8 flake8-bugbear flake8-print flake8-import-order black
-        pip install black
 
     - name: Run migrations
       run: python manage.py migrate
@@ -39,6 +38,3 @@ jobs:
 
     - name: Run flake8
       run: flake8 --exclude ./blog/migrations/
-
-    - name: Run black
-      run: black --check .

@@ -16,27 +16,6 @@ from ...models import Category, Post, Tag
 
 
 class Command(BaseCommand):
-    """
-    Астрономия': 'https://naked-science.ru/article/astronomy
-    Космонавтика': 'https://naked-science.ru/article/cosmonautics
-    Физика': 'https://naked-science.ru/article/physics
-    Химия': 'https://naked-science.ru/article/chemistry
-    Hi-Tech': 'https://naked-science.ru/article/hi-tech
-    Медицина': 'https://naked-science.ru/article/medicine
-    Биология': 'https://naked-science.ru/article/biology
-    Геология': 'https://naked-science.ru/article/geology
-    История': 'https://naked-science.ru/article/history
-    Психология': 'https://naked-science.ru/article/psy
-    https://naked-science.ru/article/climate
-    https://naked-science.ru/article/tech
-    https://naked-science.ru/article/anthropology
-    https://naked-science.ru/article/paleontology
-    https://naked-science.ru/article/concept
-    https://naked-science.ru/article/sci-fi
-    https://naked-science.ru/article/media
-    https://naked-science.ru/article/interview
-    """
-
     _headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "

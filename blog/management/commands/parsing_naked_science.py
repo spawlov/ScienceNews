@@ -12,9 +12,6 @@ from transliterate import slugify
 from ...models import Category, Post, Tag
 
 
-# from icecream import ic
-
-
 class Command(BaseCommand):
     _headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "

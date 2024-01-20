@@ -484,7 +484,7 @@ LOGGING = {
                 "mail_admins",
                 "file_error",
             ],
-            "level": "ERROR",
+            "level": "DEBUG",
             "propagate": False,
         },
         # Обрабатывает ошибки, связанные с отображением шаблонов
@@ -515,6 +515,6 @@ LOGGING = {
     },
 }
 # Отправка почты логгерами
-ADMINS = (("admin", env("EMAIL_GMAIL", "")),)
+ADMINS = (("admin", env("ADMIN_EMAIL", "")),)
 EMAIL_SUBJECT_PREFIX = "[SuperService] "
 SERVER_EMAIL = "ScienceBlog"

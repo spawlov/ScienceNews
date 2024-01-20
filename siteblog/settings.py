@@ -78,11 +78,29 @@ WSGI_APPLICATION = "siteblog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# For Postgresql
+# DB_URL — postgres://user:password@host:port/db_name
+# DB_URL = (
+#     f"postgres://"
+#     f"{env('POSTGRES_USER')}:"
+#     f"{env('POSTGRES_PASSWORD')}@"
+#     f"{env('POSTGRES_HOST')}:"
+#     f"{env.int('POSTGRES_PORT')}/"
+#     f"{env('POSTGRES_DB')}"
+# )
+
 DATABASES = {
     "default": dj_database_url.config(
         default="sqlite:////{0}".format((BASE_DIR / "db.sqlite3"))
     ),
 }
+
+#     'default': dj_database_url.config(
+#         default=DB_URL,
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     ),
+# }
 
 
 # Password validation

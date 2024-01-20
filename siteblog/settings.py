@@ -20,7 +20,7 @@ SECRET_KEY = env("SECRET_KEY", "Fake_Key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1", "localhost"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1", "localhost"], "[::1]")
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", [])
 
@@ -312,3 +312,200 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+
+# Logging
+# System colors
+HEADER = "\033[95m"
+OKBLUE = "\033[94m"
+OKCYAN = "\033[96m"
+OKGREEN = "\033[92m"
+WARNING = "\033[93m"
+FAIL = "\033[91m"
+ENDC = "\033[0m"
+BOLD = "\033[1m"
+UNDERLINE = "\033[4m"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    # Формат вывода сообщений логгера
+    "formatters": {
+        # Сообщения в консоль
+        # DEBUG
+        "con_deb": {
+            "format": f"{OKGREEN}"
+            f"%(levelname)s::"
+            f"%(asctime)s::%(message)s"
+            f"{ENDC}"
+        },
+        # INFO
+        "con_info": {
+            "format": f"{OKCYAN}"
+            f"%(levelname)s::"
+            f"%(asctime)s::%(module)s::%(message)s"
+            f"{ENDC}"
+        },
+        # WARNING
+        "con_warning": {
+            "format": f"{WARNING}"
+            f"%(levelname)s::"
+            f"%(asctime)s::%(message)s::%(pathname)s"
+            f"{ENDC}"
+        },
+        # ERROR, CRITICAL
+        "con_error_cr": {
+            "format": f"{FAIL}"
+            f"%(levelname)s::"
+            f"%(asctime)s::%(message)s::%(pathname)s::%(exc_info)s"
+            f"{ENDC}"
+        },
+        # Логирование в файл
+        # INFO_FILE
+        "file_info_format": {
+            "format": "%(levelname)s::%(asctime)s::%(module)s::%(message)s"
+        },
+        # ERROR_FILE
+        "file_error_format": {
+            "format": "%(levelname)s::"
+            "%(asctime)s::%(message)s::%(pathname)s::%(exc_info)s"
+        },
+        # SECURITY
+        "security": {
+            "format": "%(levelname)s::%(asctime)s::%(module)s::%(message)s",
+        },
+        # Email сообщение
+        # MAIL
+        "mail": {
+            "format": "%(levelname)s::%(asctime)s::%(message)s::%(pathname)s",
+        },
+    },
+    # Фильтрация
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
+        },
+    },
+    # Обработчики
+    "handlers": {
+        # DEBUG в консоль
+        "console_debug": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "con_deb",
+        },
+        # INFO в консоль
+        "console_info": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "con_info",
+        },
+        # WARNING в консоль
+        "console_warning": {
+            "level": "WARNING",
+            "class": "logging.StreamHandler",
+            "formatter": "con_warning",
+        },
+        # ERROR, CRITICAL в консоль
+        "console_error": {
+            "level": "ERROR",
+            "class": "logging.StreamHandler",
+            "formatter": "con_error_cr",
+        },
+        # INFO в файл
+        "file_info": {
+            "level": "INFO",
+            "filters": ["require_debug_false"],
+            "class": "logging.FileHandler",
+            "formatter": "file_info_format",
+            "filename": "general.log",
+        },
+        # ERROR в файл
+        "file_error": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "formatter": "file_error_format",
+            "filename": "error.log",
+        },
+        # INFO Security в файл
+        "file_security": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "formatter": "security",
+            "filename": "security.log",
+        },
+        # ERROR на email
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+            "formatter": "mail",
+        },
+    },
+    # Логгеры
+    "loggers": {
+        # Логгер принимающий все сообщения
+        "django": {
+            "handlers": [
+                "console_debug",
+                "console_info",
+                "console_warning",
+                "console_error",
+                "file_info",
+            ],
+            "level": "INFO",
+            "propagate": True,
+        },
+        # Логгер обрабатывает все сообщения вызванные HTTP-запросами
+        "django.request": {
+            "handlers": [
+                "mail_admins",
+                "file_error",
+            ],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер принимает все сообщения сервера
+        "django.server": {
+            "handlers": [
+                "mail_admins",
+                "file_error",
+            ],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Обрабатывает ошибки, связанные с отображением шаблонов
+        "django.template": {
+            "handlers": [
+                "file_error",
+            ],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер обрабатывает любые сообщения связанные
+        # со взаимодействием кода с базой данных
+        "django.db.backends": {
+            "handlers": [
+                "file_error",
+            ],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Предоставляет обработчики ошибок, связанных с безопасностью
+        "django.security": {
+            "handlers": [
+                "file_security",
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
+# Отправка почты логгерами
+ADMINS = (("admin", env("EMAIL_GMAIL")),)
+EMAIL_SUBJECT_PREFIX = "[SuperService] "
+SERVER_EMAIL = "ScienceBlog <<EMAIL>>"

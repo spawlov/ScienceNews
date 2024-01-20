@@ -77,7 +77,9 @@ class Command(BaseCommand):
             if Post.objects.filter(
                 slug=slugify(post["title"], language_code="ru")
             ).exists():
-                logger.info("Post already exist form db, skipped")
+                logger.info(
+                    f'Post "{post["title"]}" already exist from db, skipped',
+                )
                 return False
 
             post["category"] = (

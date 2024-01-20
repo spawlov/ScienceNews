@@ -1,7 +1,10 @@
+from time import sleep
+
 from bs4 import BeautifulSoup as Bs
 
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
 
 from loguru import logger
 
@@ -119,49 +122,81 @@ class Command(BaseCommand):
             for _ in range(1, len(tags_raw)):
                 post["tags"].append(" ".join(tags_raw[_].text.split()[1:]))
 
+            logger.info(f'Post "{post["title"]}" successfully parsed.')
             return post
 
     def adding_post_to_db(self):
         image_name = self.recent_post["image"].split("/")[-1]
-        image_content = ContentFile(
-            requests.get(
+        try:
+            with requests.get(
                 url=self.recent_post["image"],
                 headers=self._headers,
                 stream=True,
-            ).content,
-            name=image_name,
-        )
+            ) as response:
+                image_content = ContentFile(
+                    response.content,
+                    name=image_name,
+                )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.HTTPError,
+        ) as error:
+            logger.error(error)
+            return error
 
-        qs_category, created_category = Category.objects.get_or_create(
-            title=self.recent_post["category"],
-            slug=slugify(self.recent_post["category"], language_code="ru"),
-        )
+        try:
+            qs_category, created_category = Category.objects.get_or_create(
+                title=self.recent_post["category"],
+                slug=slugify(self.recent_post["category"], language_code="ru"),
+            )
+        except IntegrityError as error:
+            logger.error(error)
+            return error
 
-        qs_post, created_post = Post.objects.get_or_create(
-            slug=slugify(self.recent_post["title"], language_code="ru"),
-            title=self.recent_post["title"],
-            category=qs_category,
-            author="Parser",
-            content=self.recent_post["content"],
-            photo_caption=self.recent_post["image_caption"],
-            defaults={"photo": image_content},
-        )
+        message = "successfully created."
+        if not created_category:
+            message = "already exists"
+        logger.info(f'Category "{qs_category.title}" {message}')
+
+        try:
+            qs_post, created_post = Post.objects.get_or_create(
+                slug=slugify(self.recent_post["title"], language_code="ru"),
+                title=self.recent_post["title"],
+                category=qs_category,
+                author="Parser",
+                content=self.recent_post["content"],
+                photo_caption=self.recent_post["image_caption"],
+                defaults={"photo": image_content},
+            )
+        except IntegrityError as error:
+            logger.error(error)
+            return error
 
         if created_post:
             for tag in self.recent_post["tags"]:
-                qs_tag, created_tag = Tag.objects.get_or_create(
-                    title=tag, slug=slugify(tag, language_code="ru")
-                )
+                try:
+                    qs_tag, created_tag = Tag.objects.get_or_create(
+                        title=tag, slug=slugify(tag, language_code="ru")
+                    )
+                except IntegrityError as error:
+                    logger.error(error)
+                    return error
+
+                message = "successfully created."
+                if not created_category:
+                    message = "already exists"
+                logger.info(f'Tag "{qs_tag.title}" {message}')
                 qs_post.tag.add(qs_tag)
             logger.info(f'Created post "{self.recent_post["title"]}"')
-            return
-        logger.error(f'Post "{self.recent_post["title"]}" already exists')
-
-    def add_arguments(self, parser):
-        parser.add_argument("url", action="store")
+            return True
+        logger.info(f'Post "{self.recent_post["title"]}" already exists')
 
     def handle(self, *args, **options):
-        link = self.get_recent_post_link(options.get("url"))
-        self.recent_post = self.get_recent_post(link)
-        logger.info(f'Post "{self.recent_post["title"]}" successfully parsed.')
-        self.adding_post_to_db()
+        with open(".urls", "r") as urls_to_parsing:
+            for url in urls_to_parsing:
+                logger.info(f'Parsing "{url.strip()}"')
+                link = self.get_recent_post_link(url.strip())
+                self.recent_post = self.get_recent_post(link)
+                self.adding_post_to_db()
+                sleep(5)
+        logger.info("Finished parsing!")

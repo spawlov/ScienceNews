@@ -74,6 +74,12 @@ class Command(BaseCommand):
                 .text.strip()
             )
 
+            if Post.objects.filter(
+                slug=slugify(post["title"], language_code="ru")
+            ).exists():
+                logger.info("Post already exist form db, skipped")
+                return False
+
             post["category"] = (
                 soup.find(
                     name="div",
@@ -197,6 +203,7 @@ class Command(BaseCommand):
                 logger.info(f'Parsing "{url.strip()}"')
                 link = self.get_recent_post_link(url.strip())
                 self.recent_post = self.get_recent_post(link)
-                self.adding_post_to_db()
+                if self.recent_post:
+                    self.adding_post_to_db()
                 sleep(5)
         logger.info("Finished parsing!")

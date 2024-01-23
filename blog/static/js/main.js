@@ -149,35 +149,23 @@
             }
         });
 
-    //     $('#subscribe-form input').on('input keyup', function (){
-    //         const button = $('#subscribe-form button')
-    //         if($(this).val() !== ""){
-    //             if (isValidEmailAddress($(this).val())) {
-    //                 $(this).css({"color": "green"});
-    //                 $(button).removeAttr("disabled");
-    //             } else {
-    //                 $(this).css({"color": "red"});
-    //                 $(button).attr("disabled", "disabled");
-    //             }
-    //         }
-    //     });
-    //
-    //     $('#subscribe-form').on('submit', function (){
-    //         const input = $('#subscribe-form input')
-    //         if($(input).val() === ""){
-    //             $(this).attr("disabled", "disabled");
-    //         }
-    //     })
-    //
-    //
-    //     function isValidEmailAddress(emailAddress) {
-    //         const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    //         return pattern.test(emailAddress);
-    //     }
-    //
+        $('input[name="email"]').on('input', function() {
+            let emailField = $(this);
+            let emailValue = emailField.val().trim();
+                if (emailValue !== '') {
+                    let emailPattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                    if (emailPattern.test(emailValue)) {
+                        emailField.removeClass('text-danger');
+                        $('#footer-subscribe-form button[type="submit"]').prop('disabled', false);
+                    } else {
+                        emailField.addClass('text-danger');
+                        $('#footer-subscribe-form button[type="submit"]').prop('disabled', true);
+                    }
+                } else {
+                    emailField.addClass('text-danger');
+                    $('#footer-subscribe-form button[type="submit"]').prop('disabled', true);
+            }
+        });
     });
-
-
-
 })(jQuery);
 

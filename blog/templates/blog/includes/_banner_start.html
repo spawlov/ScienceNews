@@ -8,7 +8,7 @@
                 <p class="text-dark mb-4 pb-2">
                     Оставьте нам свой Email - каждую неделю Вы будете получать дайджест новых статей
                 </p>
-                {% if not subscribed %}
+                {% if subscribed %}
                     <div class="alert alert-success rounded shadow text-center" role="alert">
                         Вы подписаны на еженедельную рассылку!
                     </div>
@@ -17,7 +17,7 @@
                     {% csrf_token %}
                     <div class="position-relative mx-auto">
                         <input name="email" class="form-control w-100 py-3 rounded-pill text-center" type="email" placeholder="Введите Ваш Email">
-                        <button type="submit" class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100" style="top: 0; right: 0;" disabled="disabled">Subscribe Now</button>
+                        <button type="submit" class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100" style="top: 0; right: 0;" disabled="disabled">Подписаться</button>
                     </div>
                 </form>
             </div>

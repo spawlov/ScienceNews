@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }} :: {{ block.super }}{% endblock title %}
+{% block content %}
+    <!-- Single Product Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <ol class="breadcrumb justify-content-start mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="breadcrumb-item"><a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></li>
+                <li class="breadcrumb-item active text-dark">{{ post.title }}</li>
+            </ol>
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="mb-4">
+                        <a href="{{ post.get_absolute_url }}" class="h3 link-hover">{{ post.title }}</a>
+                    </div>
+                    <div class="position-relative rounded overflow-hidden mb-3">
+                        <figure>
+                            <img src="{{ post.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ post.photo_caption }}">
+                            <figcaption><small>{{ post.photo_caption }}</small></figcaption>
+                        </figure>
+                        <div class="position-absolute text-white px-4 py-2 bg-primary rounded" style="top: 20px; right: 20px;">
+                            {{ post.category.title }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <p><i class="fa fa-pen"></i>&nbsp;&nbsp;{{ post.author }}</p>
+                        &nbsp;|&nbsp;
+                        <p><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ post.views }}</p>
+                    </div>
+                    <p class="my-4 text-muted">
+                        {{ post.content|safe }}
+                    </p>
+                    <div class="tab-class">
+                        <div class="d-flex justify-content-between border-bottom mb-4">
+                            <ul class="nav nav-pills d-inline-flex text-center">
+                                {% for item in post.tag.all %}
+                                    <li class="nav-item mb-3">
+                                        <a class="d-flex py-2 bg-light rounded-pill active me-2" href="{{ item.get_absolute_url }}">
+                                            <span class="text-dark px-3">#{{ item.title }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="p-3 rounded border">
+                                <h4 class="mb-4">Популярные категории</h4>
+                                <div class="row g-2">
+                                    {% for item in popular_posts %}
+                                        <div class="col-12">
+                                        <a href="{{ item.category.get_absolute_url }}" class="link-hover btn btn-light w-100 rounded text-uppercase text-dark py-3">
+                                            {{ item.category.title }}
+                                        </a>
+                                    </div>
+                                    {% endfor %}                                    
+                                </div>
+                                <h4 class="my-4">Популярные статьи</h4>
+                                <div class="row g-4">
+                                    {% for item in popular_posts %}
+                                        <div class="col-12">
+                                        <div class="row g-4 align-items-center features-item">
+                                            <div class="col-4">
+                                                <div class="position-relative rounded">
+                                                    <div class="overflow-hidden rounded">
+                                                        <img src="{{ item.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ item.photo_caption }}">
+                                                    </div>
+                                                    <span class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute small" style="top: 10%; right: -10px;">{% if item.views < 1000 %}{{ item.views }}{% else %}{% widthratio item.views 1000 1 %}K{% endif %}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="features-content d-flex flex-column">
+                                                    <p class="text-uppercase mb-2">{{ item.category.title }}</p>
+                                                    <a href="{{ item.get_absolute_url }}" class="h6">
+                                                        Прочитать статью
+                                                    </a>
+                                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>&nbsp;{{ item.created_at|date:"d.m.Y" }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-lg-12">
+                                        <a href="{% url 'posts' %}" class="link-hover btn border border-primary rounded-pill text-dark w-100 py-3 mb-4">Все статьи</a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="border-bottom my-3 pb-3">
+                                            <h4 class="mb-0">Популярные теги</h4>
+                                        </div>
+                                        <ul class="nav nav-pills d-inline-flex text-center mb-4">
+                                            {% for item in popular_tags %}
+                                                <li class="nav-item mb-3">
+                                                    <a class="d-flex py-2 bg-light rounded-pill me-2" href="{{ item.get_absolute_url }}">
+                                                        <span class="text-dark link-hover px-3 small">#{{ item.title }}</span>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Single Product End -->
+{% endblock content %}
+    
+    
+        

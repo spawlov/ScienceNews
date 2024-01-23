@@ -1,0 +1,26 @@
+{% load custom_tags %}
+{% if page_obj.has_other_pages %}
+    <nav class="p-5">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=1 %}"><span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span></a></li>
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}"><span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span></a></li>
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=1 %}"><strong>1</strong></a></li>
+                {% if page_obj.previous_page_number != 1 %}
+                    <li class="page-item"><span class="page-link"><i class="fa" aria-hidden="true">...</i></span></li>
+                    <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}"><strong>{{ page_obj.previous_page_number }}</strong></a></li>
+                {% endif %}
+            {% endif %}
+            <li class="page-item"><span class="page-link bg-primary text-light current"><strong>{{ page_obj.number }}</strong></span></li>
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.next_page_number %}"><strong>{{ page_obj.next_page_number }}</strong></a></li>
+                {% if paginator.num_pages != page_obj.next_page_number %}
+                    <li class="page-item"><span class="page-link"><i class="fa" aria-hidden="true">...</i></span></li>
+                    <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.paginator.num_pages %}"><strong>{{ page_obj.paginator.num_pages }}</strong></a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.next_page_number %}"><span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a></li>
+                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.paginator.num_pages %}"><span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span></a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

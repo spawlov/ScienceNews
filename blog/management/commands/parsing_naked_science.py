@@ -82,6 +82,14 @@ class Command(BaseCommand):
                 )
                 return False
 
+            post["author"] = soup.find(
+                name='div',
+                class_="title",
+            ).find(
+                name='div',
+                class_='meta-item meta-item_author',
+            ).text.strip()
+
             post["category"] = (
                 soup.find(
                     name="div",
@@ -171,7 +179,7 @@ class Command(BaseCommand):
                 slug=slugify(self.recent_post["title"], language_code="ru"),
                 title=self.recent_post["title"],
                 category=qs_category,
-                author="Parser",
+                author=self.recent_post["author"],
                 content=self.recent_post["content"],
                 photo_caption=self.recent_post["image_caption"],
                 defaults={"photo": image_content},
@@ -191,7 +199,7 @@ class Command(BaseCommand):
                     return error
 
                 message = "successfully created."
-                if not created_category:
+                if not created_tag:
                     message = "already exists"
                 logger.info(f'Tag "{qs_tag.title}" {message}')
                 qs_post.tag.add(qs_tag)
@@ -200,7 +208,7 @@ class Command(BaseCommand):
         logger.info(f'Post "{self.recent_post["title"]}" already exists')
 
     def handle(self, *args, **options):
-        with open(".urls", "r") as urls_to_parsing:
+        with open("./.urls", "r") as urls_to_parsing:
             for url in urls_to_parsing:
                 logger.info(f'Parsing "{url.strip()}"')
                 link = self.get_recent_post_link(url.strip())

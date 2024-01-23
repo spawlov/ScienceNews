@@ -1,10 +1,21 @@
 from django.urls import path
 
-from .views import Home, PostByCategory, PostByTag, PostDetail
+from .views import (
+    ContactsView,
+    HomeView,
+    PostsByCategoryView,
+    PostsByTagView,
+    PostDetailView,
+    PostsListView,
+    SearchView,
+)
 
 urlpatterns = [
-    path("", Home.as_view(), name="home"),
-    path("post/<str:slug>/", PostDetail.as_view(), name="post"),
-    path("category/<str:slug>/", PostByCategory.as_view(), name="category"),
-    path("tag/<str:slug>/", PostByTag.as_view(), name="tag"),
+    path("", HomeView.as_view(), name="home"),
+    path("contacts/", ContactsView.as_view(), name="contacts"),
+    path("posts/", PostsListView.as_view(), name="posts"),
+    path("search/", SearchView.as_view(), name="search"),
+    path("post/<str:slug>/", PostDetailView.as_view(), name="post"),
+    path("category/<str:slug>/", PostsByCategoryView.as_view(), name="category"),
+    path("tag/<str:slug>/", PostsByTagView.as_view(), name="tag"),
 ]

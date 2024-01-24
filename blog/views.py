@@ -1,5 +1,5 @@
 from django.db.models import Count, F, Max, Q
-from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Category, Post, Tag
@@ -68,8 +68,7 @@ class PostsByCategoryView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return get_list_or_404(
-            Post,
+        return Post.objects.select_related("category").filter(
             category__slug=self.kwargs.get("slug"),
             published=True,
         )
@@ -79,9 +78,12 @@ class PostsByCategoryView(ListView):
         context["title"] = get_object_or_404(
             Category, slug=self.kwargs.get("slug")
         ).title
-        context["popular_posts_by_category"] = Post.objects.filter(
-            published=True, category__slug=self.kwargs.get("slug")
-        ).order_by("-views")[:10]
+        context["popular_posts_by_category"] = (
+            Post.objects.select_related("category")
+            .prefetch_related("tag")
+            .filter(published=True, category__slug=self.kwargs.get("slug"))
+            .order_by("-views")[:10]
+        )
         tags = []
         for post in context["popular_posts_by_category"]:
             for tag in post.tag.all():
@@ -96,15 +98,24 @@ class PostsByTagView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        return get_list_or_404(Post, tag__slug=self.kwargs.get("slug"))
+        return Post.objects.select_related("category").filter(
+            tag__slug=self.kwargs.get("slug"),
+            published=True,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs.get("slug")
         context["title"] = get_object_or_404(Tag, slug=slug).title
-        context["popular_posts_by_tag"] = Post.objects.filter(
-            published=True, tag__slug=self.kwargs.get("slug")
-        ).order_by("-views")[:10]
+        context["popular_posts_by_tag"] = (
+            Post.objects.select_related("category")
+            .prefetch_related("tag")
+            .filter(
+                published=True,
+                tag__slug=self.kwargs.get("slug"),
+            )
+            .order_by("-views")[:10]
+        )
         tags = []
         for post in context["popular_posts_by_tag"]:
             for tag in post.tag.all():
@@ -143,9 +154,14 @@ class SearchView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Post.objects.filter(
-            content__icontains=self.request.GET.get("keyword"), published=True
-        ).order_by("-created_at")
+        queryset = (
+            Post.objects.prefetch_related("category")
+            .filter(
+                content__icontains=self.request.GET.get("keyword"),
+                published=True,
+            )
+            .order_by("-created_at")
+        )
         return queryset
 
     def get_context_data(self, **kwargs):

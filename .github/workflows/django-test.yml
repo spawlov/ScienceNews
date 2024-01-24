@@ -31,10 +31,10 @@ jobs:
         pip install flake8 flake8-bugbear flake8-print flake8-import-order black
 
     - name: Run migrations
-      run: python manage.py migrate
+      run: python manage.py DEBUG=True migrate
 
     - name: Run tests
-      run: python manage.py test -v 2
+      run: python manage.py DEBUG=True test -v 2
 
     - name: Run flake8
       run: flake8 --exclude ./blog/migrations/

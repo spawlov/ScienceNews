@@ -13,7 +13,11 @@
                             <div class="row g-4 align-items-top">
                                 <div class="col-md-6">
                                     <div class="rounded overflow-hidden">
-                                        <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                        {% if item.photo %}
+                                            <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                        {% else %}
+                                            <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-fluid rounded img-zoomin w-100" alt="">
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -58,7 +62,11 @@
                                             <div class="col-4">
                                                 <div class="position-relative rounded">
                                                     <div class="overflow-hidden rounded">
-                                                        <img src="{{ item.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ item.photo_caption }}">
+                                                        {% if item.photo %}
+                                                            <img src="{{ item.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ item.photo_caption }}">
+                                                        {% else %}
+                                                            <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-zoomin img-fluid rounded w-100" alt="">
+                                                        {% endif %}
                                                     </div>
                                                     <span class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute small" style="top: 10%; right: -10px;">{% if item.views < 1000 %}{{ item.views }}{% else %}{% widthratio item.views 1000 1 %}K{% endif %}</span>
                                                 </div>

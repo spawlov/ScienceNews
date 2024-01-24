@@ -34,7 +34,7 @@ class HomeView(ListView):
                 ),
             )
             .filter(categories__published=True)
-            .order_by("-new_posts_count", "title", "-latest_post_date")[:6]
+            .order_by("-new_posts_count", "-latest_post_date")[:6]
         )
         return context
 

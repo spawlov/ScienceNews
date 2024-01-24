@@ -2,9 +2,12 @@
 {% block title %}Главная :: {{ block.super }}{% endblock title %}
 {% load static %}
 {% block content %}
+{% load cache %}
     
 <!-- Main Post Section Start -->
+{% cache 600 _post_section_start %}     
 {% include 'blog/includes/_post_section_start.html' %}
+{% endcache %}    
 <!-- Main Post Section End -->
  
 <!-- Banner Start -->
@@ -12,11 +15,15 @@
 <!-- Banner End -->   
     
 <!-- Latest News Start -->
+{% cache 600 _latest_carousel %}  
 {% include 'blog/includes/_latest_carousel.html' %}
+{% endcache %}    
 <!-- Latest News End -->    
     
 {#<!-- Most Populer News Start -->#}
+{% cache 600 _popular_categories %}    
 {% include 'blog/includes/_popular_categories.html' %}
-{#<!-- Most Populer News End -->#}
+{% endcache %}
+{#<!-- Most Populer News End -->#}    
 
 {% endblock content %}

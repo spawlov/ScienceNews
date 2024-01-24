@@ -8,6 +8,7 @@ from .views import (
     PostsByTagView,
     PostsListView,
     SearchView,
+    add_subscriber,
 )
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path("contacts/", ContactsView.as_view(), name="contacts"),
     path("posts/", PostsListView.as_view(), name="posts"),
     path("search/", SearchView.as_view(), name="search"),
+    path("subscribe/", add_subscriber, name="subscribe"),
     path("post/<str:slug>/", PostDetailView.as_view(), name="post"),
     path(
         "category/<str:slug>/",

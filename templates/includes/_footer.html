@@ -8,12 +8,12 @@
                     </a>
                 </div>
                 <div class="col-lg-9">
-                    {% if subscribed %}
+                    {% if request.session.email %}
                         <div class="alert alert-success rounded shadow text-center" role="alert">
                             Вы подписаны на еженедельную рассылку!
                         </div>
                     {% endif %}
-                    <form id="footer-subscribe-form" action="#" method="post">
+                    <form id="footer-subscribe-form" action="{% url 'subscribe' %}" method="post">
                         {% csrf_token %}
                         <div class="d-flex position-relative rounded-pill overflow-hidden">
                             <input name="email" class="form-control border-0 w-100 py-3 rounded-pill text-center" type="email" placeholder="Введите Ваш Email">

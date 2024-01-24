@@ -123,3 +123,24 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post", kwargs={"slug": self.slug})
+
+
+class Subscriber(models.Model):
+    email = models.EmailField(
+        unique=True,
+        blank=False,
+        null=False,
+        verbose_name="email",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="добавлен",
+    )
+
+    class Meta:
+        verbose_name = "подписчик(а)"
+        verbose_name_plural = "подписчики"
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return str(self.email)

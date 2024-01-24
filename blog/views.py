@@ -1,8 +1,11 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db.models import Count, F, Max, Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
-from .models import Category, Post, Tag
+from .models import Category, Post, Subscriber, Tag
 
 
 class ContactsView(TemplateView):
@@ -181,3 +184,17 @@ class SearchView(ListView):
                 tags.append(tag)
         context["popular_tags"] = set(tags)
         return context
+
+
+def add_subscriber(request):
+    if request.method == "POST":
+        email = request.POST.get("email", "")
+        try:
+            validate_email(email)
+            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            if not created:
+                request.session["email"] = subscriber.email
+            request.session["email"] = email
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+        except ValidationError:
+            return

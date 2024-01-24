@@ -7,7 +7,11 @@
                         <h3 class="mb-4"><a class="text-dark link-hover" href="{{ item.get_absolute_url }}">Новая статья</a></h3>
                     </div>
                     <div class="position-relative overflow-hidden rounded">
-                        <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                        {% if item.photo %}
+                            <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                        {% else %}
+                            <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-fluid rounded img-zoomin w-100" alt="">
+                        {% endif %}
                         <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
                             <a href="{{ item.category.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-list"></i>&nbsp;&nbsp;{{ item.category.title }}</a>
                             <a href="{{ item.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ item.views }}</a>
@@ -33,7 +37,11 @@
                         <div class="row g-4 align-items-top">
                             <div class="col-md-6">
                                 <div class="rounded overflow-hidden">
-                                    <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                    {% if item.photo %}
+                                        <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                    {% else %}
+                                        <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-fluid rounded img-zoomin w-100" alt="">
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -64,7 +72,11 @@
                             {% if forloop.counter == 1 %}
                                 <div class="col-12">
                                     <div class="rounded overflow-hidden">
-                                        <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                        {% if item.photo %}
+                                            <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                        {% else %}
+                                            <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-fluid rounded img-zoomin w-100" alt="">
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -79,7 +91,11 @@
                                     <div class="row g-4 align-items-top">
                                         <div class="col-5">
                                             <div class="overflow-hidden rounded">
-                                                <img src="{{ item.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ item.photo_caption }}">
+                                                {% if item.photo %}
+                                                    <img src="{{ item.photo.url }}" class="img-zoomin img-fluid rounded w-100" alt="{{ item.photo_caption }}">
+                                                {% else %}
+                                                    <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-zoomin img-fluid rounded w-100" alt="">
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="col-7">

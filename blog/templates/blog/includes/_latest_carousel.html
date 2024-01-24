@@ -6,7 +6,11 @@
                 <div class="latest-news-item">
                     <div class="bg-light rounded">
                         <div class="rounded-top overflow-hidden" style="height: 200px;">
-                            <img src="{{ item.photo.url }}" class="img-fluid img-zoomin rounded-top" alt="{{ item.photo_caption }}">
+                            {% if item.photo %}
+                                <img src="{{ item.photo.url }}" class="img-fluid img-zoomin rounded-top" alt="{{ item.photo_caption }}">
+                            {% else %}
+                                <img src="https://imgholder.ru/800x480/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" class="img-fluid img-zoomin rounded-top" alt="">
+                            {% endif %}
                         </div>
                         <div class="d-flex flex-column p-4" style="height: 150px;">
                             <a href="{{ item.get_absolute_url }}" class="h6 link-hover">{{ item.title}}</a>

@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 
 from transliterate import slugify
 
-from .models import Category, Post, Tag
+from .models import Category, Post, Subscriber, Tag
 
 
 class PostAdminForm(forms.ModelForm):
@@ -112,3 +112,4 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Subscriber)

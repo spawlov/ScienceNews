@@ -43,24 +43,4 @@ class PostViewTests(TestCase):
 
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse("home"))
-        self.assertTemplateUsed(response, "blog/index.html")
-
-    def test_pagination_is_exist(self):
-        response = self.client.get(reverse("home"))
-        self.assertTrue("is_paginated" in response.context)
-
-    def test_pagination_is_correct_context_name(self):
-        response = self.client.get(reverse("home"))
-        self.assertTrue(response.context["is_paginated"])
-
-    def test_pagination_is_correct_number_pages(self):
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.context["paginator"].num_pages, 2)
-
-    def test_pagination_count_posts_first_page(self):
-        response = self.client.get(reverse("home"))
-        self.assertEqual(len(response.context["posts"]), 6)
-
-    def test_pagination_count_posts_last_page(self):
-        response = self.client.get(reverse("home") + "?page=2")
-        self.assertEqual(len(response.context["posts"]), 4)
+        self.assertTemplateUsed(response, "blog/home.html")

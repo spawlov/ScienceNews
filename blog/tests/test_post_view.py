@@ -53,7 +53,7 @@ class PostViewTest(TestCase):
                 kwargs={"slug": "test-slug"},
             )
         )
-        self.assertTemplateUsed(response, "blog/post.html")
+        self.assertTemplateUsed(response, "blog/single.html")
 
     def test_post_view_uses_correct_context(self):
         response = self.client.get(

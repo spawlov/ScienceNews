@@ -1,4 +1,4 @@
-from .models import Category, Post, Tag
+from .models import Category
 
 
 def get_general_context(request):

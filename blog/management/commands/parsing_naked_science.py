@@ -82,13 +82,17 @@ class Command(BaseCommand):
                 )
                 return False
 
-            post["author"] = soup.find(
-                name='div',
-                class_="title",
-            ).find(
-                name='div',
-                class_='meta-item meta-item_author',
-            ).text.strip()
+            post["author"] = (
+                soup.find(
+                    name="div",
+                    class_="title",
+                )
+                .find(
+                    name="div",
+                    class_="meta-item meta-item_author",
+                )
+                .text.strip()
+            )
 
             post["category"] = (
                 soup.find(

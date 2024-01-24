@@ -4,14 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0008_rename_tags_post_tag'),
+        ("blog", "0008_rename_tags_post_tag"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='tag',
-            options={'ordering': ('title',), 'verbose_name': 'тег(и)', 'verbose_name_plural': 'теги'},
+            name="tag",
+            options={
+                "ordering": ("title",),
+                "verbose_name": "тег(и)",
+                "verbose_name_plural": "теги",
+            },
         ),
     ]

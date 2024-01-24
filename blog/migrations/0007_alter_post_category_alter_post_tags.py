@@ -5,20 +5,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0006_alter_category_slug_alter_tag_slug'),
+        ("blog", "0006_alter_category_slug_alter_tag_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='categories', to='blog.category', verbose_name='категория'),
+            model_name="post",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="categories",
+                to="blog.category",
+                verbose_name="категория",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='tags', to='blog.tag', verbose_name='теги'),
+            model_name="post",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, related_name="tags", to="blog.tag", verbose_name="теги"
+            ),
         ),
     ]

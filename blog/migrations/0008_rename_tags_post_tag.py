@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0007_alter_post_category_alter_post_tags'),
+        ("blog", "0007_alter_post_category_alter_post_tags"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='post',
-            old_name='tags',
-            new_name='tag',
+            model_name="post",
+            old_name="tags",
+            new_name="tag",
         ),
     ]

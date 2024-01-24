@@ -1,4 +1,4 @@
-from django.db.models import F, Count
+from django.db.models import Count, F, Max, Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
@@ -10,30 +10,37 @@ class ContactsView(TemplateView):
 
 
 class HomeView(ListView):
-    queryset = Post.objects.select_related('category').filter(published=True)
+    queryset = Post.objects.select_related("category").filter(published=True)
     template_name = "blog/home.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["latest"] = self.object_list.order_by("-created_at")
-        context["popular"] = self.object_list.order_by('-views')
-        context["random_news"] = self.object_list.order_by('?')[:6]
+        context["popular"] = self.object_list.order_by("-views")
+        context["random_news"] = self.object_list.order_by("?")[:6]
         context["popular_categories"] = (
-            Category
-            .objects
-            .prefetch_related('categories')
+            Category.objects.prefetch_related("categories")
             .annotate(
-                num_posts=Count('categories')
-            ).order_by('-num_posts', 'title')[:5]
+                new_posts_count=Count(
+                    "categories",
+                    filter=Q(categories__published=True),
+                ),
+                latest_post_date=Max(
+                    "categories__created_at",
+                    filter=Q(categories__published=True),
+                ),
+            )
+            .filter(categories__published=True)
+            .order_by("-new_posts_count", "title", "-latest_post_date")[:6]
         )
         return context
 
 
 class PostsListView(ListView):
     queryset = (
-        Post.objects.select_related('category')
+        Post.objects.select_related("category")
         .filter(published=True)
-        .order_by('-created_at')
+        .order_by("-created_at")
     )
     template_name = "blog/posts.html"
     context_object_name = "posts"
@@ -42,9 +49,8 @@ class PostsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["popular_posts"] = (
-            Post.objects
-            .select_related('category')
-            .prefetch_related('tag')
+            Post.objects.select_related("category")
+            .prefetch_related("tag")
             .filter(published=True)
             .order_by("-views")[:10]
         )
@@ -73,13 +79,9 @@ class PostsByCategoryView(ListView):
         context["title"] = get_object_or_404(
             Category, slug=self.kwargs.get("slug")
         ).title
-        context["popular_posts_by_category"] = (
-            Post.objects
-            .filter(
-                published=True,
-                category__slug=self.kwargs.get("slug")
-            ).order_by("-views")[:10]
-        )
+        context["popular_posts_by_category"] = Post.objects.filter(
+            published=True, category__slug=self.kwargs.get("slug")
+        ).order_by("-views")[:10]
         tags = []
         for post in context["popular_posts_by_category"]:
             for tag in post.tag.all():
@@ -100,13 +102,9 @@ class PostsByTagView(ListView):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs.get("slug")
         context["title"] = get_object_or_404(Tag, slug=slug).title
-        context["popular_posts_by_tag"] = (
-            Post.objects
-            .filter(
-                published=True,
-                tag__slug=self.kwargs.get("slug")
-            ).order_by("-views")[:10]
-        )
+        context["popular_posts_by_tag"] = Post.objects.filter(
+            published=True, tag__slug=self.kwargs.get("slug")
+        ).order_by("-views")[:10]
         tags = []
         for post in context["popular_posts_by_tag"]:
             for tag in post.tag.all():
@@ -123,9 +121,8 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["popular_posts"] = (
-            Post.objects
-            .select_related('category')
-            .prefetch_related('tag')
+            Post.objects.select_related("category")
+            .prefetch_related("tag")
             .filter(published=True)
             .order_by("-views")[:5]
         )
@@ -147,20 +144,18 @@ class SearchView(ListView):
 
     def get_queryset(self):
         queryset = Post.objects.filter(
-            content__icontains=self.request.GET.get("keyword"),
-            published=True
+            content__icontains=self.request.GET.get("keyword"), published=True
         ).order_by("-created_at")
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["popular_posts"] = (
-            Post.objects
-            .select_related('category')
-            .prefetch_related('tag')
+            Post.objects.select_related("category")
+            .prefetch_related("tag")
             .filter(
                 content__icontains=self.request.GET.get("keyword"),
-                published=True
+                published=True,
             )
             .order_by("-views")[:10]
         )

@@ -33,6 +33,9 @@ jobs:
     - name: Run migrations
       run: DEBUG=True python manage.py migrate
 
+    - name: Start Redis
+      run: redis-server
+
     - name: Run tests
       run: DEBUG=True python manage.py test -v 2
 

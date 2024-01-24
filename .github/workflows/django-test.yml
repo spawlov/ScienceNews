@@ -31,7 +31,7 @@ jobs:
         pip install flake8 flake8-bugbear flake8-print flake8-import-order black
 
     - name: Set up DEBUG value
-      run: DEBUG=${{ secrets.DEBUG }}
+      run: DEBUG='${{ secrets.DEBUG }}'
 
     - name: Run migrations
       run: python manage.py migrate

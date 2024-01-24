@@ -10,7 +10,6 @@ env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -25,7 +24,6 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1", "localhost"], "[::1]")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", [])
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
-
 
 # Application definition
 
@@ -76,20 +74,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "siteblog.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# For Postgresql
-# DB_URL — postgres://user:password@host:port/db_name
-# DB_URL = (
-#     f"postgres://"
-#     f"{env('POSTGRES_USER')}:"
-#     f"{env('POSTGRES_PASSWORD')}@"
-#     f"{env('POSTGRES_HOST')}:"
-#     f"{env.int('POSTGRES_PORT')}/"
-#     f"{env('POSTGRES_DB')}"
-# )
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -97,13 +83,24 @@ DATABASES = {
     ),
 }
 
-#     'default': dj_database_url.config(
-#         default=DB_URL,
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     ),
-# }
-
+# For Postgresql
+# DB_URL — postgres://user:password@host:port/db_name
+if not DEBUG:
+    DB_URL = (
+        f"postgres://"
+        f"{env('POSTGRES_USER')}:"
+        f"{env('POSTGRES_PASSWORD')}@"
+        f"{env('POSTGRES_HOST')}:"
+        f"{env.int('POSTGRES_PORT')}/"
+        f"{env('POSTGRES_DB')}"
+    )
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DB_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        ),
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -139,7 +136,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -150,7 +146,6 @@ TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -171,12 +166,10 @@ EMAIL_HOST_USER = env("EMAIL_LOGIN_GMAIL", "")
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_MAIL", "")
 EMAIL_TIMEOUT = 60
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # Django CKEDITOR
 # https://django-ckeditor.readthedocs.io/en/latest/#installation

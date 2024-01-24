@@ -162,3 +162,4 @@ cython_debug/
 /.urls
 /.pre-commit-config.yaml
 /media/
+/.django_cache/

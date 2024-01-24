@@ -542,13 +542,21 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
-# Cache with Redis
+# Cache with Redis on product
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
-        "OPTIONS": {
-            "db": 1,
-        },
-    },
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": ".django_cache",
+    }
 }
+
+if not DEBUG:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+            "OPTIONS": {
+                "db": 1,
+            },
+        },
+    }

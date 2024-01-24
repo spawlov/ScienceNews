@@ -1,5 +1,4 @@
-from django.core.cache import cache
-from django.db.models import F
+from django.db.models import F, Count
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
@@ -16,10 +15,17 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["latest"] = self.object_list.order_by("-created_at").first()
-        context["latest_list"] = self.object_list.order_by("-created_at")[:10]
-        context["most_popular"] = self.object_list.order_by('-views').first()
-        context["random_news"] = self.object_list.order_by('?')[:9]
+        context["latest"] = self.object_list.order_by("-created_at")
+        context["popular"] = self.object_list.order_by('-views')
+        context["random_news"] = self.object_list.order_by('?')[:6]
+        context["popular_categories"] = (
+            Category
+            .objects
+            .prefetch_related('categories')
+            .annotate(
+                num_posts=Count('categories')
+            ).order_by('-num_posts', 'title')[:5]
+        )
         return context
 
 

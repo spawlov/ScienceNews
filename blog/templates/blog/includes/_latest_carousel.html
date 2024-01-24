@@ -2,14 +2,14 @@
     <div class="container py-5">
         <h2 class="mb-4"><a class="text-dark link-hover" href="#">Последние статьи</a></h2>
         <div class="latest-news-carousel owl-carousel">
-            {% for item in latest_list %}                
+            {% for item in latest %}                
                 <div class="latest-news-item">
                     <div class="bg-light rounded">
                         <div class="rounded-top overflow-hidden" style="height: 200px;">
-                            <img src="{{ item.photo.url }}" class="img-fluid img-zoomin rounded-top" style="height: 100%; width: auto;" alt="{{ item.photo_caption }}">
+                            <img src="{{ item.photo.url }}" class="img-fluid img-zoomin rounded-top" alt="{{ item.photo_caption }}">
                         </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="{{ item.get_absolute_url }}" class="h6">{{ item.title|truncatechars:45 }}</a>
+                        <div class="d-flex flex-column p-4" style="height: 150px;">
+                            <a href="{{ item.get_absolute_url }}" class="h6 link-hover">{{ item.title}}</a>
                             <div class="d-flex justify-content-between">
                                 <small class="text-body d-block"><i class="fas fa-pen"></i>&nbsp;{{ item.author }}</small>
                                 <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{ item.created_at|date:"d.m.Y" }}</small>

@@ -2,56 +2,60 @@
     <div class="container py-5">
         <div class="row g-4">
             <div class="col-lg-7 col-xl-8 mt-0">
-                <div class="news-2">
-                    <h3 class="mb-4"><a class="text-dark link-hover" href="{{ latest.get_absolute_url }}">Новая статья</a></h3>
-                </div>
-                <div class="position-relative overflow-hidden rounded">
-                    <img src="{{ latest.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ latest.photo_caption }}">
-                    <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
-                        <a href="{{ latest.category.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-list"></i>&nbsp;&nbsp;{{ latest.category.title }}</a>
-                        <a href="{{ latest.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ latest.views }}</a>
+                {% for item in latest|slice:":1" %}
+                    <div class="news-2">
+                        <h3 class="mb-4"><a class="text-dark link-hover" href="{{ item.get_absolute_url }}">Новая статья</a></h3>
                     </div>
-                </div>
-                <div class="border-bottom py-3">
-                    <a href="{{ latest.get_absolute_url }}" class="h4 text-dark mb-0 link-hover">
-                        {{ latest.title }}
-                    </a>
-                </div>
-                <p class="mt-3 mb-4">{{ latest.content|safe|truncatewords_html:75 }}</p>
-                <p class="mb-0 text-muted">
-                    <i class="fa fa-pen">&nbsp;&nbsp;{{ latest.author }}</i>
-                |
-                    <i class="fa fa-calendar-alt">&nbsp;&nbsp;{{ latest.created_at|date:"d.m.Y" }}</i>
-                </p>
-                <div class="bg-light mt-5 p-4 rounded">
-                    <div class="container-fluid">
-                        <h3 class="mb-4"><a class="text-dark link-hover" href="{{ most_popular.get_absolute_url }}">Самая читаемая статья</a></h3>
-                    </div>
-                    <div class="row g-4 align-items-top">
-                        <div class="col-md-6">
-                            <div class="rounded overflow-hidden">
-                                <img src="{{ most_popular.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ most_popular.photo_caption }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex flex-column">
-                                <a href="{{ most_popular.get_absolute_url }}" class="h4 link-hover">{{ most_popular.title }}</a>
-                                <p class="mb-0 fs-6"><i class="fa fa-list">&nbsp;&nbsp;{{ most_popular.category.title }}</i></p>
-                                <p class="mb-0 fs-6"><i class="fa fa-eye">&nbsp;{{ most_popular.views }}</i></p>
-                                <p>{{ most_popular.content|safe|truncatewords_html:15 }}</p>
-                                <p class="mb-0 text-muted">
-                                    <i class="fa fa-pen">&nbsp;&nbsp;{{ most_popular.author }}</i>
-                                </p>
-                                <p class="mb-0 text-muted">
-                                    <i class="fa fa-calendar-alt">&nbsp;&nbsp;{{ most_popular.created_at|date:"d.m.Y" }}</i>
-                                </p>
-                            </div>
+                    <div class="position-relative overflow-hidden rounded">
+                        <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                        <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
+                            <a href="{{ item.category.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-list"></i>&nbsp;&nbsp;{{ item.category.title }}</a>
+                            <a href="{{ item.get_absolute_url }}" class="text-white me-3 link-hover"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ item.views }}</a>
                         </div>
                     </div>
-                </div>
+                    <div class="border-bottom py-3">
+                        <a href="{{ item.get_absolute_url }}" class="h4 text-dark mb-0 link-hover">
+                            {{ item.title }}
+                        </a>
+                    </div>
+                    <p class="mt-3 mb-4">{{ item.content|safe|truncatewords_html:75 }}</p>
+                    <p class="mb-0 text-muted">
+                        <i class="fa fa-pen">&nbsp;&nbsp;{{ item.author }}</i>
+                    |
+                        <i class="fa fa-calendar-alt">&nbsp;&nbsp;{{ item.created_at|date:"d.m.Y" }}</i>
+                    </p>
+                {% endfor %}
+                {% for item in popular|slice:":1" %}
+                    <div class="bg-light mt-5 p-4 rounded">
+                        <div class="container-fluid">
+                            <h3 class="mb-4"><a class="text-dark link-hover" href="{{ item.get_absolute_url }}">Самая читаемая статья</a></h3>
+                        </div>
+                        <div class="row g-4 align-items-top">
+                            <div class="col-md-6">
+                                <div class="rounded overflow-hidden">
+                                    <img src="{{ item.photo.url }}" class="img-fluid rounded img-zoomin w-100" alt="{{ item.photo_caption }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-column">
+                                    <a href="{{ item.get_absolute_url }}" class="h5 link-hover">{{ item.title }}</a>
+                                    <p class="mb-0 fs-6"><i class="fa fa-list">&nbsp;&nbsp;{{ item.category.title }}</i></p>
+                                    <p class="mb-0 fs-6"><i class="fa fa-eye">&nbsp;{{ item.views }}</i></p>
+                                    <p>{{ item.content|safe|truncatewords_html:15 }}</p>
+                                    <p class="mb-0 text-muted">
+                                        <i class="fa fa-pen">&nbsp;&nbsp;{{ item.author }}</i>
+                                    </p>
+                                    <p class="mb-0 text-muted">
+                                        <i class="fa fa-calendar-alt">&nbsp;&nbsp;{{ item.created_at|date:"d.m.Y" }}</i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             <div class="col-lg-5 col-xl-4">
-               <div class="bg-light rounded p-4 pt-0">
+               <div class="bg-light rounded p-4 pt-0 shadow">
                     <div class="row g-4">
                     <div class="container-fluid">
                         <h3 class="h5 mb-1">Случайный выбор статей</h3>
@@ -65,7 +69,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex flex-column">
-                                        <a href="{{ item.get_absolute_url }}" class="h5 mb-2 link-hover">{{ item.title|truncatechars:60 }}</a>
+                                        <a href="{{ item.get_absolute_url }}" class="h6 mb-2 link-hover">{{ item.title }}</a>
                                         <p class="fs-6 mb-0"><i class="fa fa-list">&nbsp;&nbsp;{{ item.category.title }}</i> </p>
                                         <p class="fs-6 mb-0"><i class="fa fa-eye">&nbsp;{{ item.views }}</i></p>
                                     </div>
@@ -80,7 +84,7 @@
                                         </div>
                                         <div class="col-7">
                                             <div class="features-content d-flex flex-column">
-                                                <a href="{{ item.get_absolute_url }}" class="h6 link-hover">{{ item.title|truncatechars:35 }}</a>
+                                                <a href="{{ item.get_absolute_url }}" class="h6 link-hover">{{ item.title }}</a>
                                                 <small><i class="fa fa-list">&nbsp;&nbsp;{{ item.category.title }}</i> </small>
                                                 <small><i class="fa fa-eye">&nbsp;{{ item.views }}</i></small>
                                             </div>

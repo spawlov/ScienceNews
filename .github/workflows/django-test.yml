@@ -30,13 +30,14 @@ jobs:
         pip install -r requirements.txt
         pip install flake8 flake8-bugbear flake8-print flake8-import-order black
 
-    - name: Set up DEBUG value
-      run: DEBUG='${{ secrets.DEBUG }}'
-
     - name: Run migrations
+      env:
+        DEBUG: True
       run: python manage.py migrate
 
     - name: Run tests
+      env:
+        DEBUG: True
       run: python manage.py test -v 2
 
     - name: Run flake8

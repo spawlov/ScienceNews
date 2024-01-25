@@ -516,6 +516,7 @@ LOGGING = {
         # со взаимодействием кода с базой данных
         "django.db.backends": {
             "handlers": [
+                "mail_admins",
                 "file_error",
             ],
             "level": "ERROR",
@@ -524,6 +525,7 @@ LOGGING = {
         # Предоставляет обработчики ошибок, связанных с безопасностью
         "django.security": {
             "handlers": [
+                "mail_admins",
                 "file_security",
             ],
             "level": "INFO",

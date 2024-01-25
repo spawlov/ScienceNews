@@ -1,3 +1,4 @@
+import subprocess
 from datetime import timedelta
 
 from celery import shared_task
@@ -39,3 +40,8 @@ def test_mailing():
             )
             message.attach_alternative(html_content, "text/html")
             message.send()
+
+
+@shared_task()
+def parsing():
+    subprocess.run(["python", "manage.py", "parsing_naked_science"])

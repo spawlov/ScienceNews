@@ -32,7 +32,7 @@ systemctl reload nginx
 echo "Nginx reloaded"
 echo "=================================================================="
 echo "Deactivating venv..."
-source deactivate
+deactivate
 echo "Venv deactivated."
 echo "=================================================================="
 chmod g+x deploy.sh

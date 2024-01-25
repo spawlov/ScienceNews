@@ -157,14 +157,18 @@ STATICFILES_DIRS = [BASE_DIR / "blog/static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# GMail
-EMAIL = env("EMAIL_GMAIL", "")
-EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = env("EMAIL_LOGIN_GMAIL", "")
-EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_MAIL", "")
+# SMTP providers
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Yandex
+EMAIL = env("EMAIL_YA", "")
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = env("EMAIL_LOGIN_YA", "")
+EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_YA", "")
+EMAIL_USE_SSL = True
 EMAIL_TIMEOUT = 60
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

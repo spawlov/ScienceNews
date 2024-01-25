@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Статьи по тегу #{{ title }} :: {{ block.super }}{% endblock title %}
+{% load custom_filters %}
+{% load cache %}
 {% block content %}
+    {% cache 600 tag title|get_slug page_obj.number  %}
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row g-4">
@@ -108,4 +111,5 @@
             </div>
         </div>
     </div>
+    {% endcache %}
 {% endblock content %}

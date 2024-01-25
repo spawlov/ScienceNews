@@ -25,8 +25,8 @@ app.conf.beat_schedule = {
     "parsing": {
         "task": "blog.tasks.parsing",
         "schedule": crontab(
-            # hour="*",
-            minute="*/5",
+            hour="*",
+            minute="0",
         ),
     },
 }

@@ -8,7 +8,7 @@ git pull
 echo "Pull from repository completed."
 echo "=================================================================="
 echo "Activating venv..."
-source .sciencenews/bin/activate
+source .science_news/bin/activate
 echo "Venv activated."
 echo "=================================================================="
 echo "Updating requirements..."

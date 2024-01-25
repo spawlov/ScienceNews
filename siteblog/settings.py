@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'django.middleware.cache.UpdateCacheMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -50,7 +49,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = "siteblog.urls"
@@ -469,6 +467,13 @@ LOGGING = {
             "level": "ERROR",
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
+            "include_html": True,
+            "email_backend": "django"
+            ".core"
+            ".mail"
+            ".backends"
+            ".filebased"
+            ".EmailBackend",
             "formatter": "mail",
         },
     },
@@ -536,7 +541,7 @@ LOGGING = {
 # Отправка почты логгерами
 ADMINS = (("admin", env("ADMIN_EMAIL", "")),)
 EMAIL_SUBJECT_PREFIX = "[SuperService] "
-SERVER_EMAIL = "ScienceBlog"
+SERVER_EMAIL = EMAIL
 
 # Celery Configuration Options
 CELERY_TIMEZONE = TIME_ZONE

@@ -5,7 +5,7 @@
 {% load cache %}
     
 <!-- Main Post Section Start -->
-{% cache 600 _post_section_start %}     
+{% cache 600 _post_section_start %}
 {% include 'blog/includes/_post_section_start.html' %}
 {% endcache %}    
 <!-- Main Post Section End -->
@@ -15,15 +15,15 @@
 <!-- Banner End -->   
     
 <!-- Latest News Start -->
-{% cache 600 _latest_carousel %}  
+{% cache 600 _latest_carousel %}
 {% include 'blog/includes/_latest_carousel.html' %}
-{% endcache %}    
+{% endcache %}
 <!-- Latest News End -->    
     
-{#<!-- Most Populer News Start -->#}
-{% cache 600 _popular_categories %}    
+{#<!-- Most Popular News Start -->#}
+{% cache 600 _popular_categories %}
 {% include 'blog/includes/_popular_categories.html' %}
 {% endcache %}
-{#<!-- Most Populer News End -->#}    
+{#<!-- Most Popular News End -->#}
 
 {% endblock content %}

@@ -44,4 +44,10 @@ def weekly_mailing():
 
 @shared_task()
 def parsing():
-    subprocess.run(["python", "manage.py", "parsing_naked_science"])
+    subprocess.run(
+        [
+            "/opt/ScienceNews/.science_news/bin/python",
+            "manage.py",
+            "parsing_naked_science",
+        ],
+    )

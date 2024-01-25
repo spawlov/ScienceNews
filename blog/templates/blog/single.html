@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}{{ post.title }} :: {{ block.super }}{% endblock title %}
+{% load custom_filters %}
+{% load cache %}
 {% block content %}
     <!-- Single Product Start -->
+    {% cache 3600 single_post_ post.title|get_slug %}
     <div class="container-fluid py-5">
         <div class="container py-5">
             <ol class="breadcrumb justify-content-start mb-4">
@@ -117,6 +120,7 @@
             </div>
         </div>
     </div>
+    {% endcache %}
     <!-- Single Product End -->
 {% endblock content %}
     

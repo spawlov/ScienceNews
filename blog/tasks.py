@@ -12,7 +12,7 @@ from .models import Post, Subscriber
 
 
 @shared_task
-def test_mailing():
+def weekly_mailing():
     site = settings.ALLOWED_HOSTS[0]
     last_week = timezone.now() - timedelta(days=7)
     posts = Post.objects.filter(

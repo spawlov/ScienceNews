@@ -545,6 +545,7 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 # Cache with Redis on product
 CACHES = {

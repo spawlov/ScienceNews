@@ -191,10 +191,14 @@ class SearchView(ListView):
 
 def add_subscriber(request):
     if request.method == "POST":
+        result = 18 / 0
         email = request.POST.get("email", "")
         try:
             validate_email(email)
-            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            subscriber, created = Subscriber.objects.get_or_create(
+                email=email,
+                user=result,
+            )
             if not created:
                 request.session["email"] = subscriber.email
             request.session["email"] = email

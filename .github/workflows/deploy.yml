@@ -22,6 +22,6 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Run script on VPS
-        run: ls -al
+          script: |
+            cd ${{ secrets.PATH }}
+            ls -al

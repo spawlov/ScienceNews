@@ -506,6 +506,7 @@ LOGGING = {
         # Обрабатывает ошибки, связанные с отображением шаблонов
         "django.template": {
             "handlers": [
+                "mail_admins",
                 "file_error",
             ],
             "level": "ERROR",

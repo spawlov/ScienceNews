@@ -53,8 +53,6 @@ jobs:
         DEBUG: True
       run: coverage run --source='.' manage.py test -v 2 && coverage report
 
-#      run: python manage.py test -v 2
-
     - name: Run flake8
       run: flake8 --exclude ./blog/migrations/
 

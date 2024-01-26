@@ -5,6 +5,7 @@ on:
     workflows: ["ScienceNews CI"]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   deploy:

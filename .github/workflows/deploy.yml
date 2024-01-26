@@ -24,4 +24,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Run script on VPS
-        run: ls -al
+        run: |
+          cd ${{ secrets.PATH }} &&
+          ./deploy.sh

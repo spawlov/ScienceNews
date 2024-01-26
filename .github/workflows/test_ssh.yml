@@ -16,13 +16,14 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Connect to VPS over SSH
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}          
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: whoami
 
-      - name: Run script on VPS
-        run: |
-          sudo bash ll
+#      - name: Run script on VPS
+#        run: |
+#          sudo bash ll

@@ -1,4 +1,6 @@
+import os
 import subprocess
+import sys
 from datetime import timedelta
 
 from celery import shared_task
@@ -42,12 +44,26 @@ def weekly_mailing():
             message.send()
 
 
+# @shared_task()
+# def parsing():
+#     subprocess.run(
+#         [
+#             "/opt/ScienceNews/.science_news/bin/python",
+#             "manage.py",
+#             "parsing_naked_science",
+#         ],
+#     )
+
+
 @shared_task()
 def parsing():
+    python_path = sys.executable
+    project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    manage_path = os.path.join(project_path, "manage.py")
     subprocess.run(
         [
-            "/opt/ScienceNews/.science_news/bin/python",
-            "manage.py",
+            python_path,
+            manage_path,
             "parsing_naked_science",
         ],
     )

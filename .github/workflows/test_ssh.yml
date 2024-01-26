@@ -14,10 +14,11 @@ jobs:
       - name: Connect to VPS over SSH
         uses: appleboy/ssh-action@master
         with:
-          host: your-server
-          username: your-ssh-username
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}          
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.DeployKey }}
 
       - name: Run script on VPS
         run: |
-          sudo bash /path/to/your/script.sh
+          sudo bash ll

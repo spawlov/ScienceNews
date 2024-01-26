@@ -157,6 +157,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # SMTP providers
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 # Yandex
 EMAIL = env("EMAIL_YA", "")
@@ -467,13 +468,6 @@ LOGGING = {
             "level": "ERROR",
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
-            "include_html": True,
-            "email_backend": "django"
-            ".core"
-            ".mail"
-            ".backends"
-            ".filebased"
-            ".EmailBackend",
             "formatter": "mail",
         },
     },

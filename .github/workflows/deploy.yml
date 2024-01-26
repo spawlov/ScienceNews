@@ -1,8 +1,8 @@
-name: Deploy to VPS
+name: ScienceNews Deploy
 
 on:
   workflow_run:
-    workflows: ["ScienceNews CI"]
+    workflows: ["ScienceNews Testing"]
     types:
       - completed
   workflow_dispatch:
@@ -24,5 +24,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Run script on VPS
-        run: |
-          bash ll
+        run: ll

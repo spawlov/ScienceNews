@@ -1,4 +1,4 @@
-name: ScienceNews CI
+name: ScienceNews Testing
 
 on:
   push:

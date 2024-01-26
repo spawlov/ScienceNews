@@ -157,9 +157,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # SMTP providers
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
-# Yandex
 EMAIL = env("EMAIL_YA", "")
 EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 465
@@ -167,6 +165,10 @@ EMAIL_HOST_USER = env("EMAIL_LOGIN_YA", "")
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_YA", "")
 EMAIL_USE_SSL = True
 EMAIL_TIMEOUT = 60
+
+ADMINS = (("admin", env("ADMIN_EMAIL", "")),)
+EMAIL_SUBJECT_PREFIX = "[SuperService] "
+SERVER_EMAIL = EMAIL
 
 
 # Default primary key field type
@@ -339,72 +341,58 @@ CKEDITOR_CONFIGS = {
 }
 
 # Logging
-# System colors
-HEADER = "\033[95m"
-OKBLUE = "\033[94m"
-OKCYAN = "\033[96m"
-OKGREEN = "\033[92m"
-WARNING = "\033[93m"
-FAIL = "\033[91m"
-ENDC = "\033[0m"
-BOLD = "\033[1m"
-UNDERLINE = "\033[4m"
-
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    # Формат вывода сообщений логгера
     "formatters": {
-        # Сообщения в консоль
-        # DEBUG
         "con_deb": {
-            "format": f"{OKGREEN}"
-            f"%(levelname)s::"
-            f"%(asctime)s::%(message)s"
-            f"{ENDC}"
+            "format": "%(levelname)s :: %(asctime)s :: %(message)s",
         },
-        # INFO
         "con_info": {
-            "format": f"{OKCYAN}"
-            f"%(levelname)s::"
-            f"%(asctime)s::%(module)s::%(message)s"
-            f"{ENDC}"
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(module)s :: "
+            "%(message)s"
         },
-        # WARNING
         "con_warning": {
-            "format": f"{WARNING}"
-            f"%(levelname)s::"
-            f"%(asctime)s::%(message)s::%(pathname)s"
-            f"{ENDC}"
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(message)s :: "
+            "%(pathname)s"
         },
-        # ERROR, CRITICAL
         "con_error_cr": {
-            "format": f"{FAIL}"
-            f"%(levelname)s::"
-            f"%(asctime)s::%(message)s::%(pathname)s::%(exc_info)s"
-            f"{ENDC}"
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(message)s ::"
+            " %(pathname)s :: "
+            "%(exc_info)s"
         },
-        # Логирование в файл
-        # INFO_FILE
         "file_info_format": {
-            "format": "%(levelname)s::%(asctime)s::%(module)s::%(message)s"
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(module)s :: "
+            "%(message)s"
         },
-        # ERROR_FILE
         "file_error_format": {
             "format": "%(levelname)s::"
-            "%(asctime)s::%(message)s::%(pathname)s::%(exc_info)s"
+            "%(asctime)s :: "
+            "%(message)s :: "
+            "%(pathname)s :: "
+            "%(exc_info)s"
         },
-        # SECURITY
         "security": {
-            "format": "%(levelname)s::%(asctime)s::%(module)s::%(message)s",
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(module)s :: "
+            "%(message)s",
         },
-        # Email сообщение
-        # MAIL
         "mail": {
-            "format": "%(levelname)s::%(asctime)s::%(message)s::%(pathname)s",
+            "format": "%(levelname)s :: "
+            "%(asctime)s :: "
+            "%(message)s :: "
+            "%(pathname)s",
         },
     },
-    # Фильтрация
     "filters": {
         "require_debug_true": {
             "()": "django.utils.log.RequireDebugTrue",
@@ -413,35 +401,29 @@ LOGGING = {
             "()": "django.utils.log.RequireDebugFalse",
         },
     },
-    # Обработчики
     "handlers": {
-        # DEBUG в консоль
         "console_debug": {
             "level": "DEBUG",
             "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
+            "class": "rich.logging.RichHandler",
             "formatter": "con_deb",
         },
-        # INFO в консоль
         "console_info": {
             "level": "INFO",
             "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
+            "class": "rich.logging.RichHandler",
             "formatter": "con_info",
         },
-        # WARNING в консоль
         "console_warning": {
             "level": "WARNING",
-            "class": "logging.StreamHandler",
+            "class": "rich.logging.RichHandler",
             "formatter": "con_warning",
         },
-        # ERROR, CRITICAL в консоль
         "console_error": {
             "level": "ERROR",
-            "class": "logging.StreamHandler",
+            "class": "rich.logging.RichHandler",
             "formatter": "con_error_cr",
         },
-        # INFO в файл
         "file_info": {
             "level": "INFO",
             "filters": ["require_debug_false"],
@@ -449,21 +431,18 @@ LOGGING = {
             "formatter": "file_info_format",
             "filename": "general.log",
         },
-        # ERROR в файл
         "file_error": {
             "level": "ERROR",
             "class": "logging.FileHandler",
             "formatter": "file_error_format",
             "filename": "error.log",
         },
-        # INFO Security в файл
         "file_security": {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "security",
             "filename": "security.log",
         },
-        # ERROR на email
         "mail_admins": {
             "level": "ERROR",
             "filters": ["require_debug_false"],
@@ -471,12 +450,9 @@ LOGGING = {
             "formatter": "mail",
         },
     },
-    # Логгеры
     "loggers": {
-        # Логгер принимающий все сообщения
         "django": {
             "handlers": [
-                "console_debug",
                 "console_info",
                 "console_warning",
                 "console_error",
@@ -485,46 +461,50 @@ LOGGING = {
             "level": "INFO",
             "propagate": True,
         },
-        # Логгер обрабатывает все сообщения вызванные HTTP-запросами
         "django.request": {
             "handlers": [
+                "console_error",
                 "mail_admins",
                 "file_error",
             ],
             "level": "ERROR",
             "propagate": False,
         },
-        # Логгер принимает все сообщения сервера
         "django.server": {
             "handlers": [
+                "console_debug",
+                "console_info",
+                "console_warning",
+                "console_error",
                 "mail_admins",
                 "file_error",
             ],
             "level": "DEBUG",
             "propagate": False,
         },
-        # Обрабатывает ошибки, связанные с отображением шаблонов
         "django.template": {
             "handlers": [
+                "console_error",
                 "mail_admins",
                 "file_error",
             ],
             "level": "ERROR",
             "propagate": False,
         },
-        # Логгер обрабатывает любые сообщения связанные
-        # со взаимодействием кода с базой данных
         "django.db.backends": {
             "handlers": [
+                "console_error",
                 "mail_admins",
                 "file_error",
             ],
             "level": "ERROR",
             "propagate": False,
         },
-        # Предоставляет обработчики ошибок, связанных с безопасностью
         "django.security": {
             "handlers": [
+                "console_info",
+                "console_warning",
+                "console_error",
                 "mail_admins",
                 "file_security",
             ],
@@ -533,10 +513,6 @@ LOGGING = {
         },
     },
 }
-# Отправка почты логгерами
-ADMINS = (("admin", env("ADMIN_EMAIL", "")),)
-EMAIL_SUBJECT_PREFIX = "[SuperService] "
-SERVER_EMAIL = EMAIL
 
 # Celery Configuration Options
 CELERY_TIMEZONE = TIME_ZONE

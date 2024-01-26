@@ -44,17 +44,6 @@ def weekly_mailing():
             message.send()
 
 
-# @shared_task()
-# def parsing():
-#     subprocess.run(
-#         [
-#             "/opt/ScienceNews/.science_news/bin/python",
-#             "manage.py",
-#             "parsing_naked_science",
-#         ],
-#     )
-
-
 @shared_task()
 def parsing():
     python_path = sys.executable

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..utils import get_filename
+from ..ck_get_filename import get_filename
 
 
 class UtilsTest(TestCase):

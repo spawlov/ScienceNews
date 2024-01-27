@@ -200,4 +200,5 @@ def add_subscriber(request):
             request.session["email"] = email
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         except ValidationError:
-            return
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

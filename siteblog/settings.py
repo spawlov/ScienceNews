@@ -158,11 +158,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # SMTP providers
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-EMAIL = env("EMAIL_YA", "")
-EMAIL_HOST = "smtp.yandex.ru"
+EMAIL = env("EMAIL_MAIL", "")
+EMAIL_HOST = "smtp.mail.ru"
 EMAIL_PORT = 465
-EMAIL_HOST_USER = env("EMAIL_LOGIN_YA", "")
-EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_YA", "")
+EMAIL_HOST_USER = env("EMAIL_LOGIN_MAIL", "")
+EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD_MAIL", "")
 EMAIL_USE_SSL = True
 EMAIL_TIMEOUT = 60
 

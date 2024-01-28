@@ -1,4 +1,5 @@
 import os
+import smtplib
 import subprocess
 import sys
 from datetime import timedelta
@@ -41,7 +42,21 @@ def weekly_mailing():
                 connection=connection,
             )
             message.attach_alternative(html_content, "text/html")
-            message.send()
+            try:
+                message.send()
+            except (
+                smtplib.SMTPConnectError,
+                smtplib.SMTPAuthenticationError,
+                smtplib.SMTPDataError,
+                smtplib.SMTPHeloError,
+                smtplib.SMTPNotSupportedError,
+                smtplib.SMTPRecipientsRefused,
+                smtplib.SMTPSenderRefused,
+                smtplib.SMTPServerDisconnected,
+                smtplib.SMTPException,
+            ) as error:
+                return str(error)
+            return "Email sent successfully"
 
 
 @shared_task()
@@ -56,3 +71,4 @@ def parsing():
             "parsing_naked_science",
         ],
     )
+    return "Parsing finished successfully"

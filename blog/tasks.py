@@ -56,7 +56,7 @@ def weekly_mailing():
                 smtplib.SMTPException,
             ) as error:
                 return str(error)
-            return "Email sent successfully"
+    return "Email sent successfully"
 
 
 @shared_task()

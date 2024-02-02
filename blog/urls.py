@@ -9,6 +9,7 @@ from .views import (
     PostsListView,
     SearchView,
     add_subscriber,
+    delete_subscriber,
 )
 
 urlpatterns = [
@@ -17,6 +18,7 @@ urlpatterns = [
     path("posts/", PostsListView.as_view(), name="posts"),
     path("search/", SearchView.as_view(), name="search"),
     path("subscribe/", add_subscriber, name="subscribe"),
+    path("unsubscribe/", delete_subscriber, name="unsubscribe"),
     path("post/<str:slug>/", PostDetailView.as_view(), name="post"),
     path(
         "category/<str:slug>/",

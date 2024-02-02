@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db.models import Count, F, Max, Q
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Category, Post, Subscriber, Tag
@@ -202,3 +202,16 @@ def add_subscriber(request):
         except ValidationError:
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def delete_subscriber(request):
+    email = request.GET.get("email", "")
+    try:
+        validate_email(email)
+        subscriber = get_object_or_404(Subscriber, email=email)
+        subscriber.delete()
+        del request.session["email"]
+    except ValidationError:
+        raise Http404("Email not found")
+    else:
+        return redirect("home")

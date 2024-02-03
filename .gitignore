@@ -163,3 +163,4 @@ cython_debug/
 /.pre-commit-config.yaml
 /media/
 /.django_cache/
+/temp

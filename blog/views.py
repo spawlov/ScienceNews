@@ -146,11 +146,14 @@ class PostDetailView(DetailView):
             .filter(published=True)
             .order_by("-views")[:5]
         )
+        categories = []
         tags = []
         for post in context["popular_posts"]:
             for tag in post.tag.all():
                 tags.append(tag)
+            categories.append(post.category)
         context["popular_tags"] = set(tags)
+        context["popular_categories"] = set(categories)
         self.object.views = F("views") + 1
         self.object.save()
         self.object.refresh_from_db()

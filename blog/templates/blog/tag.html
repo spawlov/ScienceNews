@@ -78,7 +78,7 @@
                                                     <div class="features-content d-flex flex-column">
                                                         <p class="text-uppercase mb-2">{{ item.category.title }}</p>
                                                         <a href="{{ item.get_absolute_url }}" class="h6">
-                                                            Прочитать статью
+                                                            {{ item.title }}
                                                         </a>
                                                         <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>&nbsp;{{ item.created_at|date:"d.m.Y" }}</small>
                                                     </div>

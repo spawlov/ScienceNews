@@ -104,13 +104,9 @@ class PostsByTagView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        return (
-            Post.objects.select_related("category")
-            .filter(
-                tag__slug=self.kwargs.get("slug"),
-                published=True,
-            )
-            .distinct()
+        return Post.objects.select_related("category").filter(
+            tag__slug=self.kwargs.get("slug"),
+            published=True,
         )
 
     def get_context_data(self, **kwargs):
@@ -124,6 +120,7 @@ class PostsByTagView(ListView):
                 published=True,
                 tag__slug=self.kwargs.get("slug"),
             )
+            .distinct()
             .order_by("-views")[:10]
         )
         tags = []

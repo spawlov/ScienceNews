@@ -120,7 +120,6 @@ class PostsByTagView(ListView):
                 published=True,
                 tag__slug=self.kwargs.get("slug"),
             )
-            .distinct()
             .order_by("-views")[:10]
         )
         tags = []

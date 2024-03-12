@@ -122,14 +122,14 @@ class PostsByTagView(ListView):
             )
             .order_by("-views")[:10]
         )
-        context["popular_categories"] = (
-            context["popular_posts_by_tag"].categories.all().distinct()
-        )
+        categories = []
         tags = []
         for post in context["popular_posts_by_tag"]:
             for tag in post.tag.all():
                 tags.append(tag)
+            categories.append(post.category)
         context["popular_tags"] = set(tags)
+        context["popular_categories"] = set(categories)
         return context
 
 

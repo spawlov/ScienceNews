@@ -58,10 +58,10 @@
                             <div class="p-3 rounded border">
                                 <h4 class="mb-4">Популярные категории</h4>
                                 <div class="row g-2">
-                                    {% for item in popular_posts %}
+                                    {% for item in popular_categories %}
                                         <div class="col-12">
-                                        <a href="{{ item.category.get_absolute_url }}" class="link-hover btn btn-light w-100 rounded text-uppercase text-dark py-3">
-                                            {{ item.category.title }}
+                                        <a href="{{ item.get_absolute_url }}" class="link-hover btn btn-light w-100 rounded text-uppercase text-dark py-3">
+                                            {{ item.title }}
                                         </a>
                                     </div>
                                     {% endfor %}                                    

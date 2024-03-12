@@ -60,11 +60,14 @@ class PostsListView(ListView):
             .filter(published=True)
             .order_by("-views")[:10]
         )
+        categories = []
         tags = []
         for post in context["popular_posts"]:
             for tag in post.tag.all():
                 tags.append(tag)
+            categories.append(post.category)
         context["popular_tags"] = set(tags)
+        context["popular_categories"] = set(categories)
         return context
 
 

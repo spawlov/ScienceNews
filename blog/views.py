@@ -18,8 +18,8 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["latest"] = self.object_list.order_by("-created_at")
-        context["popular"] = self.object_list.order_by("-views")
+        context["latest"] = self.object_list.order_by("-created_at")[:10]
+        context["popular"] = self.object_list.order_by("-views")[:10]
         context["random_news"] = self.object_list.order_by("?")[:6]
         context["popular_categories"] = (
             Category.objects.prefetch_related("categories")

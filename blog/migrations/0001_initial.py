@@ -22,10 +22,19 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=255)),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=255,
+                    ),
+                ),
                 (
                     "slug",
-                    models.SlugField(max_length=255, unique=True, verbose_name="url"),
+                    models.SlugField(
+                        max_length=255,
+                        unique=True,
+                        verbose_name="url",
+                    ),
                 ),
             ],
             options={
@@ -44,8 +53,19 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=50)),
-                ("slug", models.SlugField(unique=True, verbose_name="url")),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        unique=True,
+                        verbose_name="url",
+                    ),
+                ),
             ],
             options={
                 "ordering": ("title",),
@@ -63,17 +83,38 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=255)),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=255,
+                    ),
+                ),
                 (
                     "slug",
-                    models.SlugField(max_length=255, unique=True, verbose_name="url"),
+                    models.SlugField(
+                        max_length=255,
+                        unique=True,
+                        verbose_name="url",
+                    ),
                 ),
-                ("author", models.CharField(max_length=100)),
-                ("content", models.TextField(blank=True, null=True)),
+                (
+                    "author",
+                    models.CharField(
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(
+                        blank=True,
+                        null=True,
+                    ),
+                ),
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="опубликовано"
+                        auto_now_add=True,
+                        verbose_name="опубликовано",
                     ),
                 ),
                 (
@@ -86,7 +127,8 @@ class Migration(migrations.Migration):
                 (
                     "views",
                     models.IntegerField(
-                        default=0, verbose_name="количество просмотров"
+                        default=0,
+                        verbose_name="количество просмотров",
                     ),
                 ),
                 (
@@ -100,7 +142,9 @@ class Migration(migrations.Migration):
                 (
                     "tags",
                     models.ManyToManyField(
-                        blank=True, related_name="posts", to="blog.tag"
+                        blank=True,
+                        related_name="posts",
+                        to="blog.tag",
                     ),
                 ),
             ],

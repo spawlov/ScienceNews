@@ -24,12 +24,17 @@ class Migration(migrations.Migration):
                 (
                     "email",
                     models.EmailField(
-                        max_length=254, unique=True, verbose_name="email"
+                        max_length=254,
+                        unique=True,
+                        verbose_name="email",
                     ),
                 ),
                 (
                     "created_at",
-                    models.DateTimeField(auto_now_add=True, verbose_name="добавлен"),
+                    models.DateTimeField(
+                        auto_now_add=True,
+                        verbose_name="добавлен",
+                    ),
                 ),
             ],
             options={

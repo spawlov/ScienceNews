@@ -39,13 +39,18 @@ class Migration(migrations.Migration):
             model_name="category",
             name="title",
             field=models.CharField(
-                max_length=255, unique=True, verbose_name="название"
+                max_length=255,
+                unique=True,
+                verbose_name="название",
             ),
         ),
         migrations.AlterField(
             model_name="post",
             name="author",
-            field=models.CharField(max_length=100, verbose_name="автор"),
+            field=models.CharField(
+                max_length=100,
+                verbose_name="автор",
+            ),
         ),
         migrations.AlterField(
             model_name="post",
@@ -61,14 +66,19 @@ class Migration(migrations.Migration):
             model_name="post",
             name="content",
             field=ckeditor.fields.RichTextField(
-                blank=True, null=True, verbose_name="контент"
+                blank=True,
+                null=True,
+                verbose_name="контент",
             ),
         ),
         migrations.AlterField(
             model_name="post",
             name="photo",
             field=models.ImageField(
-                blank=True, null=True, upload_to="photos/%Y/%m/%d", verbose_name="фото"
+                blank=True,
+                null=True,
+                upload_to="photos/%Y/%m/%d",
+                verbose_name="фото",
             ),
         ),
         migrations.AlterField(
@@ -88,17 +98,27 @@ class Migration(migrations.Migration):
             model_name="post",
             name="tags",
             field=models.ManyToManyField(
-                blank=True, related_name="posts", to="blog.tag", verbose_name="теги"
+                blank=True,
+                related_name="posts",
+                to="blog.tag",
+                verbose_name="теги",
             ),
         ),
         migrations.AlterField(
             model_name="post",
             name="title",
-            field=models.CharField(max_length=255, verbose_name="название"),
+            field=models.CharField(
+                max_length=255,
+                verbose_name="название",
+            ),
         ),
         migrations.AlterField(
             model_name="tag",
             name="title",
-            field=models.CharField(max_length=50, unique=True, verbose_name="название"),
+            field=models.CharField(
+                max_length=50,
+                unique=True,
+                verbose_name="название",
+            ),
         ),
     ]

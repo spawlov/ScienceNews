@@ -76,7 +76,13 @@ class Migration(migrations.Migration):
                         auto_now_add=True, verbose_name="опубликовано"
                     ),
                 ),
-                ("photo", models.ImageField(blank=True, upload_to="photos/%Y/%m/%d")),
+                (
+                    "photo",
+                    models.ImageField(
+                        blank=True,
+                        upload_to="photos/%Y/%m/%d",
+                    ),
+                ),
                 (
                     "views",
                     models.IntegerField(

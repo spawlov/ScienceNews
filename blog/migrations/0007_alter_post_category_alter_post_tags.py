@@ -24,7 +24,10 @@ class Migration(migrations.Migration):
             model_name="post",
             name="tags",
             field=models.ManyToManyField(
-                blank=True, related_name="tags", to="blog.tag", verbose_name="теги"
+                blank=True,
+                related_name="tags",
+                to="blog.tag",
+                verbose_name="теги",
             ),
         ),
     ]

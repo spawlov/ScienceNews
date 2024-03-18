@@ -13,14 +13,21 @@ class Migration(migrations.Migration):
             model_name="category",
             name="slug",
             field=models.SlugField(
-                blank=True, max_length=255, null=True, unique=True, verbose_name="url"
+                blank=True,
+                max_length=255,
+                null=True,
+                unique=True,
+                verbose_name="url",
             ),
         ),
         migrations.AlterField(
             model_name="tag",
             name="slug",
             field=models.SlugField(
-                blank=True, null=True, unique=True, verbose_name="url"
+                blank=True,
+                null=True,
+                unique=True,
+                verbose_name="url",
             ),
         ),
     ]

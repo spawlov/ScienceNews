@@ -13,7 +13,11 @@ class Migration(migrations.Migration):
             model_name="post",
             name="slug",
             field=models.SlugField(
-                blank=True, max_length=255, null=True, unique=True, verbose_name="url"
+                blank=True,
+                max_length=255,
+                null=True,
+                unique=True,
+                verbose_name="url",
             ),
         ),
     ]

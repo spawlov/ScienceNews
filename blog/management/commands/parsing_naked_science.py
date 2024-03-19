@@ -219,5 +219,5 @@ class Command(BaseCommand):
                 self.recent_post = self.get_recent_post(link)
                 if self.recent_post:
                     self.adding_post_to_db()
-                sleep(5)
+                sleep(1)
         logger.info("Finished parsing!")

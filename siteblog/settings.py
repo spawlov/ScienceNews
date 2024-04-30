@@ -83,7 +83,7 @@ DATABASES = {
 
 # For Postgresql
 # DB_URL — postgres://user:password@host:port/db_name
-if not DEBUG or DEBUG:
+if not DEBUG:
     DB_URL = (
         f"postgres://"
         f"{env('POSTGRES_USER')}:"

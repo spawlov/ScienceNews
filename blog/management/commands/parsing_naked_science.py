@@ -140,7 +140,9 @@ class Command(BaseCommand):
             )
             post["tags"] = []
             for _ in range(1, len(tags_raw)):
-                post["tags"].append(" ".join(tags_raw[_].text.split()[1:]))
+                tag = " ".join(tags_raw[_].text.split()[1:])
+                if tag:
+                    post["tags"].append(tag)
 
             logger.info(f'Post "{post["title"]}" successfully parsed.')
             return post

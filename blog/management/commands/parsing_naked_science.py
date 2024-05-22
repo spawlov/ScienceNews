@@ -140,9 +140,7 @@ class Command(BaseCommand):
             )
             post["tags"] = []
             for _ in range(1, len(tags_raw)):
-                tag = " ".join(tags_raw[_].text.split()[1:])
-                if tag:
-                    post["tags"].append(tag)
+                post["tags"].append(" ".join(tags_raw[_].text.split()[1:]))
 
             logger.info(f'Post "{post["title"]}" successfully parsed.')
             return post
@@ -196,20 +194,22 @@ class Command(BaseCommand):
 
         if created_post:
             for tag in self.recent_post["tags"]:
-                try:
-                    qs_tag, created_tag = Tag.objects.get_or_create(
-                        title=tag, slug=slugify(tag, language_code="ru")
-                    )
-                except IntegrityError as error:
-                    logger.error(error)
-                    return error
+                tag = tag.strip()
+                if tag:
+                    try:
+                        qs_tag, created_tag = Tag.objects.get_or_create(
+                            title=tag, slug=slugify(tag, language_code="ru")
+                        )
+                    except IntegrityError as error:
+                        logger.error(error)
+                        return error
 
-                message = "successfully created."
-                if not created_tag:
-                    message = "already exists"
-                logger.info(f'Tag "{qs_tag.title}" {message}')
-                qs_post.tag.add(qs_tag)
-            logger.info(f'Created post "{self.recent_post["title"]}"')
+                    message = "successfully created."
+                    if not created_tag:
+                        message = "already exists"
+                    logger.info(f'Tag "{qs_tag.title}" {message}')
+                    qs_post.tag.add(qs_tag)
+                logger.info(f'Created post "{self.recent_post["title"]}"')
             return True
         logger.info(f'Post "{self.recent_post["title"]}" already exists')
 

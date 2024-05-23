@@ -61,10 +61,11 @@ class Command(BaseCommand):
         ) as error:
             logger.error(error)
             return error
-        else:
-            post = {}
-            content = []
 
+        post = {}
+        content = []
+
+        try:
             post["title"] = (
                 soup.find(
                     name="div",
@@ -141,9 +142,12 @@ class Command(BaseCommand):
             post["tags"] = []
             for _ in range(1, len(tags_raw)):
                 post["tags"].append(" ".join(tags_raw[_].text.split()[1:]))
+        except AttributeError as error:
+            logger.error(error)
+            return error
 
-            logger.info(f'Post "{post["title"]}" successfully parsed.')
-            return post
+        logger.info(f'Post "{post["title"]}" successfully parsed.')
+        return post
 
     def adding_post_to_db(self):
         image_name = self.recent_post["image"].split("/")[-1]
@@ -219,6 +223,8 @@ class Command(BaseCommand):
                 logger.info(f'Parsing "{url.strip()}"')
                 link = self.get_recent_post_link(url.strip())
                 self.recent_post = self.get_recent_post(link)
+                if not isinstance(self.recent_post, dict):
+                    continue
                 if self.recent_post:
                     self.adding_post_to_db()
                 sleep(1)

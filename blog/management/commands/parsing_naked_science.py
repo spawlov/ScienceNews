@@ -74,6 +74,9 @@ class Command(BaseCommand):
                 .find(name="h1")
                 .text.strip()
             )
+            if len(post["title"]) > 255:
+                logger.error("Title too long")
+                return "Title too long"
 
             if Post.objects.filter(
                 slug=slugify(post["title"], language_code="ru")

@@ -56,6 +56,7 @@ class Command(BaseCommand):
             with requests.get(url=url, headers=self._headers) as response:
                 soup = Bs(response.text, features="lxml")
         except (
+            requests.exceptions.InvalidSchema,
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
         ) as error:

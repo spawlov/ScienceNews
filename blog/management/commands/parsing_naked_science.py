@@ -26,7 +26,7 @@ class Command(BaseCommand):
         super().__init__()
         self.recent_post = {}
 
-    def get_recent_post_link(self, url):
+    def get_recent_post_link(self, url: str) -> str:
         try:
             with requests.get(url=url, headers=self._headers) as response:
                 soup = Bs(response.text, features="lxml")
@@ -35,7 +35,7 @@ class Command(BaseCommand):
             requests.exceptions.HTTPError,
         ) as error:
             logger.error(error)
-            return {"error": error}
+            return error
         else:
             href = (
                 soup.find(
@@ -51,7 +51,7 @@ class Command(BaseCommand):
 
             return href
 
-    def get_recent_post(self, url):
+    def get_recent_post(self, url: str) -> dict | str | None:
         try:
             with requests.get(url=url, headers=self._headers) as response:
                 soup = Bs(response.text, features="lxml")
@@ -60,8 +60,8 @@ class Command(BaseCommand):
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
         ) as error:
-            logger.error(error)
-            return error
+            logger.error(f"{error}")
+            return f"{error}"
 
         post = {}
         content = []
@@ -85,7 +85,7 @@ class Command(BaseCommand):
                 logger.info(
                     f'Post "{post["title"]}" already exists from db, skipped',
                 )
-                return False
+                return
 
             post["author"] = (
                 soup.find(
@@ -148,12 +148,12 @@ class Command(BaseCommand):
                 post["tags"].append(" ".join(tags_raw[_].text.split()[1:]))
         except AttributeError as error:
             logger.error(error)
-            return error
+            return f"{error}"
 
         logger.info(f'Post "{post["title"]}" successfully parsed.')
         return post
 
-    def adding_post_to_db(self):
+    def adding_post_to_db(self) -> str | None:
         image_name = self.recent_post["image"].split("/")[-1]
         try:
             with requests.get(
@@ -170,7 +170,7 @@ class Command(BaseCommand):
             requests.exceptions.HTTPError,
         ) as error:
             logger.error(error)
-            return error
+            return f"{error}"
 
         try:
             qs_category, created_category = Category.objects.get_or_create(
@@ -179,7 +179,7 @@ class Command(BaseCommand):
             )
         except IntegrityError as error:
             logger.error(error)
-            return error
+            return f"{error}"
 
         message = "successfully created."
         if not created_category:
@@ -198,7 +198,7 @@ class Command(BaseCommand):
             )
         except IntegrityError as error:
             logger.error(error)
-            return error
+            return f"{error}"
 
         if created_post:
             for tag in self.recent_post["tags"]:
@@ -210,7 +210,7 @@ class Command(BaseCommand):
                         )
                     except IntegrityError as error:
                         logger.error(error)
-                        return error
+                        return f"{error}"
 
                     message = "successfully created."
                     if not created_tag:
@@ -218,10 +218,10 @@ class Command(BaseCommand):
                     logger.info(f'Tag "{qs_tag.title}" {message}')
                     qs_post.tag.add(qs_tag)
                 logger.info(f'Created post "{self.recent_post["title"]}"')
-            return True
+            return
         logger.info(f'Post "{self.recent_post["title"]}" already exists')
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         with open("./.urls", "r") as urls_to_parsing:
             for url in urls_to_parsing:
                 logger.info(f'Parsing "{url.strip()}"')

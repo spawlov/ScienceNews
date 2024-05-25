@@ -166,6 +166,7 @@ class Command(BaseCommand):
                     name=image_name,
                 )
         except (
+            requests.exceptions.InvalidSchema,
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
         ) as error:

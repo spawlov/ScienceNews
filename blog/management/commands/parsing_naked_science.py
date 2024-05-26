@@ -144,8 +144,6 @@ class Command(BaseCommand):
                 .get("href")
             )
 
-            logger.debug(post["image"])
-
             post["image_caption"] = (
                 soup.find(
                     name="div",

@@ -28,7 +28,11 @@ class Command(BaseCommand):
 
     def get_recent_post_link(self, url: str) -> str:
         try:
-            with requests.get(url=url, headers=self._headers) as response:
+            with requests.get(
+                url=url,
+                headers=self._headers,
+                timeout=30,
+            ) as response:
                 soup = Bs(response.text, features="lxml")
         except (
             requests.exceptions.ConnectionError,
@@ -53,12 +57,18 @@ class Command(BaseCommand):
 
     def get_recent_post(self, url: str) -> dict | str | None:
         try:
-            with requests.get(url=url, headers=self._headers) as response:
+            with requests.get(
+                url=url,
+                headers=self._headers,
+                timeout=30,
+            ) as response:
                 soup = Bs(response.text, features="lxml")
         except (
-            requests.exceptions.InvalidSchema,
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
+            requests.exceptions.InvalidSchema,
+            requests.exceptions.InvalidURL,
+            requests.exceptions.Timeout,
         ) as error:
             logger.error(f"{error}")
             return f"{error}"
@@ -160,15 +170,18 @@ class Command(BaseCommand):
                 url=self.recent_post["image"],
                 headers=self._headers,
                 stream=True,
+                timeout=30,
             ) as response:
                 image_content = ContentFile(
                     response.content,
                     name=image_name,
                 )
         except (
-            requests.exceptions.InvalidSchema,
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
+            requests.exceptions.InvalidSchema,
+            requests.exceptions.InvalidURL,
+            requests.exceptions.Timeout,
         ) as error:
             logger.error(error)
             return f"{error}"

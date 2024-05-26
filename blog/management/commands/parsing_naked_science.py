@@ -135,10 +135,16 @@ class Command(BaseCommand):
                 content.append(f"<p>{paragraph.text.strip()}</p>")
             post["content"] = "".join(content)
 
-            post["image"] = "https:" + soup.find(
-                name="div",
-                class_="post-image-inner",
-            ).find("img").get("src")
+            post["image"] = (
+                soup.find(
+                    name="div",
+                    class_="post-image-inner",
+                )
+                .find("a")
+                .get("href")
+            )
+
+            logger.debug(post["image"])
 
             post["image_caption"] = (
                 soup.find(

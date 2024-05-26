@@ -37,6 +37,9 @@ class Command(BaseCommand):
         except (
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError,
+            requests.exceptions.InvalidSchema,
+            requests.exceptions.InvalidURL,
+            requests.exceptions.Timeout,
         ) as error:
             logger.error(error)
             return error

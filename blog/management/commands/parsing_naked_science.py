@@ -238,7 +238,7 @@ class Command(BaseCommand):
                         message = "already exists"
                     logger.info(f'Tag "{qs_tag.title}" {message}')
                     qs_post.tag.add(qs_tag)
-                logger.info(f'Created post "{self.recent_post["title"]}"')
+            logger.info(f'Created post "{self.recent_post["title"]}"')
             return
         logger.info(f'Post "{self.recent_post["title"]}" already exists')
 

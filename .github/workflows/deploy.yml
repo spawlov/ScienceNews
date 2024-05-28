@@ -5,6 +5,7 @@ on:
     workflows: ["ScienceNews Testing"]
     types:
       - completed
+    dispatch:
 
 jobs:
   deploy:

@@ -1,11 +1,11 @@
 name: ScienceNews Deploy
 
 on:
-  workflow_run:
+  #workflow_run:
     #workflows: ["ScienceNews Testing"]
     #types:
     #  - completed
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   deploy:

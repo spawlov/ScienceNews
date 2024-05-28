@@ -24,20 +24,19 @@ python manage.py migrate --noinput
 echo "Migrations completed."
 echo "=================================================================="
 echo "Restarting Gunicorn..."
-systemctl restart sciencenews.service
+sudo systemctl restart sciencenews.service
 echo "Restart Gunicorn completed."
 echo "=================================================================="
 echo "Restarting Celery..."
-systemctl restart sc-celery.service
+sudo systemctl restart sc-celery.service
 echo "Restart Celery completed."
 echo "=================================================================="
 echo "Reloading Nginx..."
-systemctl reload nginx
+sudo systemctl reload nginx
 echo "Nginx reloaded"
 echo "=================================================================="
 echo "Deactivating venv..."
 deactivate
-echo "Venv deactivated."
 echo "=================================================================="
 chmod g+x deploy.sh
 echo "Deploy completed."

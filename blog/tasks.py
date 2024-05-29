@@ -59,7 +59,7 @@ def weekly_mailing():
     return "Email sent successfully"
 
 
-@shared_task()
+@shared_task
 def parsing():
     python_path = sys.executable
     project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -72,3 +72,18 @@ def parsing():
         ],
     )
     return "Parsing finished successfully"
+
+
+@shared_task
+def daily_clear_sessions():
+    python_path = sys.executable
+    project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    manage_path = os.path.join(project_path, "manage.py")
+    subprocess.run(
+        [
+            python_path,
+            manage_path,
+            "clearsessions",
+        ],
+    )
+    return "Old sessions cleared successfully"

@@ -24,4 +24,12 @@ app.conf.beat_schedule = {
             day_of_week="monday",
         ),
     },
+    "daily_clear_sessions": {
+        "task": "blog.tasks.daily_clear_sessions",
+        "schedule": crontab(
+            hour="0",
+            minute="0",
+            day_of_week="*",
+        ),
+    },
 }

@@ -1,5 +1,3 @@
-from time import sleep
-
 from bs4 import BeautifulSoup as Bs
 
 from django.core.files.base import ContentFile
@@ -252,5 +250,4 @@ class Command(BaseCommand):
                     continue
                 if self.recent_post:
                     self.adding_post_to_db()
-                sleep(1)
         logger.info("Finished parsing!")

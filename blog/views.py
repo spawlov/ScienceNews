@@ -220,7 +220,6 @@ def delete_subscriber(request):
         subscriber = get_object_or_404(Subscriber, email=email)
         subscriber.delete()
         del request.session["email"]
-    except ValidationError:
-        raise Http404("Email not found")
-    else:
-        return redirect("home")
+    except ValidationError as exc:
+        raise Http404("Email not found") from exc
+    return redirect("home")

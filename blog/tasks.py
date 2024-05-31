@@ -55,7 +55,7 @@ def weekly_mailing():
                 smtplib.SMTPServerDisconnected,
                 smtplib.SMTPException,
             ) as error:
-                return str(error)
+                return f"Mailing error: {error}"
     return "Email sent successfully"
 
 
@@ -64,13 +64,18 @@ def parsing():
     python_path = sys.executable
     project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     manage_path = os.path.join(project_path, "manage.py")
-    subprocess.run(
-        [
-            python_path,
-            manage_path,
-            "parsing_naked_science",
-        ],
-    )
+
+    try:
+        subprocess.run(
+            [
+                python_path,
+                manage_path,
+                "parsing_naked_science",
+            ],
+            check=True,
+        )
+    except subprocess.CalledProcessError as error:
+        return f"Error starting parser: {error}"
     return "Parsing finished successfully"
 
 
@@ -79,11 +84,16 @@ def daily_clear_sessions():
     python_path = sys.executable
     project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     manage_path = os.path.join(project_path, "manage.py")
-    subprocess.run(
-        [
-            python_path,
-            manage_path,
-            "clearsessions",
-        ],
-    )
+
+    try:
+        subprocess.run(
+            [
+                python_path,
+                manage_path,
+                "clearsessions",
+            ],
+            check=True,
+        )
+    except subprocess.CalledProcessError as error:
+        return f"Error starting clean session: {error}"
     return "Old sessions cleared successfully"

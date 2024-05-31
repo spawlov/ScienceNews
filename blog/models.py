@@ -143,4 +143,4 @@ class Subscriber(models.Model):
         ordering = ("-created_at",)
 
     def __str__(self):
-        return str(self.email)
+        return self.email

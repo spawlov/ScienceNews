@@ -172,7 +172,7 @@ class SearchView(ListView):
         queryset = (
             Post.objects.prefetch_related("category")
             .filter(
-                content__icontains=self.request.GET.get("keyword"),
+                content__icontains=self.request.GET.get("keyword", ""),
                 published=True,
             )
             .order_by("-created_at")
